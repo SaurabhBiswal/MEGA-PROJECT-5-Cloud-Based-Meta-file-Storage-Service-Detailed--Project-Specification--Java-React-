@@ -1,0 +1,5839 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.example:demo >--------------------------
+[INFO] Building demo 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.10:run (default-cli) > test-compile @ demo >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demo ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demo ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 34 source files with javac [debug parameters release 17] to target\classes
+[WARNING] /C:/Users/punpu/OneDrive/Desktop/New folder (2)  WEB DEV PROJECTS/Cloud Based Meta file Storage Service/demo/src/main/java/com/cloudstorage/service/FileService.java:[187,17] <T>where(org.springframework.data.jpa.domain.Specification<T>) in org.springframework.data.jpa.domain.Specification has been deprecated and marked for removal
+[INFO] /C:/Users/punpu/OneDrive/Desktop/New folder (2)  WEB DEV PROJECTS/Cloud Based Meta file Storage Service/demo/src/main/java/com/cloudstorage/config/SecurityConfig.java: C:\Users\punpu\OneDrive\Desktop\New folder (2)  WEB DEV PROJECTS\Cloud Based Meta file Storage Service\demo\src\main\java\com\cloudstorage\config\SecurityConfig.java uses or overrides a deprecated API.
+[INFO] /C:/Users/punpu/OneDrive/Desktop/New folder (2)  WEB DEV PROJECTS/Cloud Based Meta file Storage Service/demo/src/main/java/com/cloudstorage/config/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demo ---
+[INFO] skip non existing resourceDirectory C:\Users\punpu\OneDrive\Desktop\New folder (2)  WEB DEV PROJECTS\Cloud Based Meta file Storage Service\demo\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ demo ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] /C:/Users/punpu/OneDrive/Desktop/New folder (2)  WEB DEV PROJECTS/Cloud Based Meta file Storage Service/demo/src/test/java/com/cloudstorage/controller/FileIntegrationTest.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/Users/punpu/OneDrive/Desktop/New folder (2)  WEB DEV PROJECTS/Cloud Based Meta file Storage Service/demo/src/test/java/com/cloudstorage/controller/FileIntegrationTest.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] <<< spring-boot:3.5.10:run (default-cli) < test-compile @ demo <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.10:run (default-cli) @ demo ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.10)
+
+2026-01-24T23:17:42.120+05:30  INFO 10408 --- [  restartedMain] c.cloudstorage.CloudStorageApplication   : Starting CloudStorageApplication using Java 17.0.15 with PID 10408 (C:\Users\punpu\OneDrive\Desktop\New folder (2)  WEB DEV PROJECTS\Cloud Based Meta file Storage Service\demo\target\classes started by punpu in C:\Users\punpu\OneDrive\Desktop\New folder (2)  WEB DEV PROJECTS\Cloud Based Meta file Storage Service\demo)
+2026-01-24T23:17:42.167+05:30  INFO 10408 --- [  restartedMain] c.cloudstorage.CloudStorageApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-01-24T23:17:42.642+05:30  INFO 10408 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-01-24T23:17:42.644+05:30  INFO 10408 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-01-24T23:17:53.828+05:30  INFO 10408 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-24T23:17:54.544+05:30  INFO 10408 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 643 ms. Found 5 JPA repository interfaces.
+2026-01-24T23:18:01.223+05:30  INFO 10408 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-24T23:18:01.283+05:30  INFO 10408 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-24T23:18:01.284+05:30  INFO 10408 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-01-24T23:18:01.477+05:30  INFO 10408 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-24T23:18:01.481+05:30  INFO 10408 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 18831 ms
+2026-01-24T23:18:02.562+05:30  INFO 10408 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-24T23:18:02.938+05:30  INFO 10408 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.41.Final
+2026-01-24T23:18:03.122+05:30  INFO 10408 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-24T23:18:07.007+05:30  INFO 10408 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-24T23:18:07.399+05:30  INFO 10408 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-24T23:18:12.236+05:30  INFO 10408 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/cloudstoragedb user=SA
+2026-01-24T23:18:12.248+05:30  INFO 10408 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-24T23:18:12.654+05:30  WARN 10408 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-24T23:18:12.918+05:30  INFO 10408 --- [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-24T23:18:16.335+05:30  INFO 10408 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-24T23:18:16.482+05:30  INFO 10408 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-24T23:18:17.897+05:30  INFO 10408 --- [  restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-01-24T23:18:17.903+05:30  WARN 10408 --- [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-01-24T23:18:18.601+05:30  WARN 10408 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-24T23:18:20.506+05:30  INFO 10408 --- [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/cloudstoragedb'
+2026-01-24T23:18:20.689+05:30  INFO 10408 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-01-24T23:18:20.774+05:30  INFO 10408 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-01-24T23:18:20.790+05:30  INFO 10408 --- [  restartedMain] c.cloudstorage.CloudStorageApplication   : Started CloudStorageApplication in 44.029 seconds (process running for 48.913)
+? Cloud Storage Application Started!
+? Connected to H2 In-Memory Database
+? Server running on http://localhost:8080
+? H2 Console available at http://localhost:8080/h2-console
+? Test APIs:
+   - http://localhost:8080/api/test
+   - http://localhost:8080/api/db-test
+   - http://localhost:8080/api/create-users-table
+2026-01-25T00:22:32.345+05:30  INFO 10408 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-25T00:22:32.348+05:30  INFO 10408 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-25T00:22:32.349+05:30  INFO 10408 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-01-25T00:22:39.597+05:30  INFO 10408 --- [nio-8080-exec-2] com.cloudstorage.service.EmailService    : Preparing to send email to: saurabhbiswal926@gmail.com from: jvjvkhg via SMTP
+2026-01-25T00:22:39.680+05:30  INFO 10408 --- [nio-8080-exec-2] com.cloudstorage.service.EmailService    : Attempting SMTP handshake for saurabhbiswal926@gmail.com
+2026-01-25T00:22:44.758+05:30  INFO 10408 --- [nio-8080-exec-2] com.cloudstorage.service.EmailService    : SMTP SUCCESS: Message delivered to mail server for carrier: saurabhbiswal926@gmail.com
+2026-01-25T00:22:44.758+05:30  INFO 10408 --- [nio-8080-exec-2] c.c.service.NotificationService          : External notification transmitted to Gmail for saurabhbiswal926@gmail.com
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+2026-01-25T00:22:53.387+05:30  INFO 10408 --- [nio-8080-exec-8] o.apache.tomcat.util.http.parser.Cookie  : A cookie header was received [g_state={"i_l":0,"i_ll":1769263797961,"i_b":"ysUqSaTcoHetHvotoCgq8ukzs4+bDiMLo8XGEX7xdQs","i_e":{"enable_itp_optimization":0}}] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    update
+        files 
+    set
+        created_at=?,
+        file_name=?,
+        file_path=?,
+        file_size=?,
+        file_type=?,
+        folder_id=?,
+        is_starred=?,
+        is_trashed=?,
+        public_share_token=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+2026-01-25T00:23:12.266+05:30  INFO 10408 --- [io-8080-exec-10] com.cloudstorage.service.EmailService    : Preparing to send email to: saurabhbiswal926@gmail.com from: jvjvkhg via SMTP
+2026-01-25T00:23:12.269+05:30  INFO 10408 --- [io-8080-exec-10] com.cloudstorage.service.EmailService    : Attempting SMTP handshake for saurabhbiswal926@gmail.com
+2026-01-25T00:23:16.714+05:30  INFO 10408 --- [io-8080-exec-10] com.cloudstorage.service.EmailService    : SMTP SUCCESS: Message delivered to mail server for carrier: saurabhbiswal926@gmail.com
+2026-01-25T00:23:16.714+05:30  INFO 10408 --- [io-8080-exec-10] c.c.service.NotificationService          : External notification transmitted to Gmail for saurabhbiswal926@gmail.com
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.public_share_token=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        f1_0.parent_folder_id,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        folders f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.parent_folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and f1_0.folder_id is null 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f2_0.id,
+        f2_0.created_at,
+        f2_0.is_trashed,
+        f2_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f2_0.updated_at,
+        f2_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u3_0.id,
+        u3_0.created_at,
+        u3_0.email,
+        u3_0.name,
+        u3_0.password,
+        u3_0.updated_at 
+    from
+        files f1_0 
+    left join
+        folders f2_0 
+            on f2_0.id=f1_0.folder_id 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f2_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    left join
+        users u2_0 
+            on u2_0.id=f2_0.user_id 
+    join
+        users u3_0 
+            on u3_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.created_at,
+        s1_0.expires_at,
+        s1_0.file_id,
+        s1_0.permission,
+        s1_0.shared_by_user_id,
+        s1_0.shared_with_user_id 
+    from
+        shares s1_0 
+    left join
+        files f1_0 
+            on f1_0.id=s1_0.file_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.file_name,
+        f1_0.file_path,
+        f1_0.file_size,
+        f1_0.file_type,
+        f1_0.folder_id,
+        f1_0.is_starred,
+        f1_0.is_trashed,
+        f1_0.public_share_token,
+        f1_0.updated_at,
+        f1_0.user_id 
+    from
+        files f1_0 
+    where
+        f1_0.user_id=? 
+        and not(f1_0.is_trashed)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.is_trashed,
+        f1_0.name,
+        pf1_0.id,
+        pf1_0.created_at,
+        pf1_0.is_trashed,
+        pf1_0.name,
+        pf1_0.parent_folder_id,
+        pf1_0.updated_at,
+        pf1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.updated_at,
+        f1_0.updated_at,
+        f1_0.user_id,
+        u2_0.id,
+        u2_0.created_at,
+        u2_0.email,
+        u2_0.name,
+        u2_0.password,
+        u2_0.updated_at 
+    from
+        folders f1_0 
+    left join
+        folders pf1_0 
+            on pf1_0.id=f1_0.parent_folder_id 
+    left join
+        users u1_0 
+            on u1_0.id=pf1_0.user_id 
+    join
+        users u2_0 
+            on u2_0.id=f1_0.user_id 
+    where
+        f1_0.id=?
+^C

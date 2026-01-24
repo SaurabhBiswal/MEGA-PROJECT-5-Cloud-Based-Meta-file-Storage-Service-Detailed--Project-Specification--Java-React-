@@ -1,0 +1,29 @@
+
+# Build Artifacts
+target/
+dist/
+build/
+node_modules/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.mv.db
+*.trace.db
+
+# User Uploads (CRITICAL EXTENSION)
+demo/uploads/
+uploads/
+*.mp4
+*.mkv
+*.mov
+*.avi

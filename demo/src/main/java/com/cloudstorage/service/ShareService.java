@@ -44,22 +44,21 @@ public class ShareService {
             throw new RuntimeException("You don't have permission to share this file");
         }
 
+        // ALWAYS ensure public link exists for direct access via email (Unification)
+        if (file.getPublicShareToken() == null) {
+            file.setPublicShareToken(UUID.randomUUID().toString());
+            file = fileRepository.saveAndFlush(file);
+        }
+
         // Find user to share with
         Optional<User> sharedWithOpt = userRepository.findByEmail(email);
 
         if (sharedWithOpt.isEmpty()) {
             // EXTERNAL SHARE: User not in system
-            // 1. Ensure public link exists
-            if (file.getPublicShareToken() == null) {
-                file.setPublicShareToken(UUID.randomUUID().toString());
-                file = fileRepository.saveAndFlush(file);
-            }
-            // 2. Try to send email (won't crash share if it fails)
             try {
                 notificationService.sendExternalShareNotification(email, sharedBy, file, file.getPublicShareToken());
             } catch (Exception e) {
-                // Log the error so we can debug Gmail issues
-                System.err.println("⚠️ EMAIL FAILED (Gmail Auth Issue): " + e.getMessage());
+                log.error("⚠️ EXTERNAL EMAIL FAILED: {}", e.getMessage());
             }
             return Map.of("external", true, "token", file.getPublicShareToken());
         }
@@ -74,7 +73,7 @@ public class ShareService {
         Optional<Share> existingShare = shareRepository.findByFileIdAndSharedWith(fileId, sharedWith);
         if (existingShare.isPresent()) {
             Share share = existingShare.get();
-            share.setPermission(permission); // Update permission
+            share.setPermission(permission);
             return shareRepository.save(share);
         }
 
@@ -83,16 +82,15 @@ public class ShareService {
         share.setSharedBy(sharedBy);
         share.setSharedWith(sharedWith);
         share.setPermission(permission);
-        // Expiry can be added later
 
         Share savedShare = shareRepository.save(share);
 
-        // Try to send email (won't crash share if it fails)
+        // Send Notification with the direct public token
         try {
-            notificationService.sendFileSharedNotification(sharedWith, sharedBy, file, permission.name());
+            notificationService.sendFileSharedNotification(sharedWith, sharedBy, file, permission.name(),
+                    file.getPublicShareToken());
         } catch (Exception e) {
-            // Log the error so we can debug Gmail issues
-            System.err.println("⚠️ EMAIL FAILED (Gmail Auth Issue): " + e.getMessage());
+            log.error("⚠️ INTERNAL EMAIL FAILED: {}", e.getMessage());
         }
 
         return savedShare;

@@ -1,44 +1,65 @@
 package com.cloudstorage.service;
 
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    @Value("${resend.api.key}")
+    private String resendApiKey;
 
-    @org.springframework.beans.factory.annotation.Value("${spring.mail.username}")
-    private String smtpUsername;
+    @Value("${resend.from.email:noreply@cloudbox.com}")
+    private String fromEmail;
 
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    @Async
     public void sendEmail(String to, String subject, String body, String fromName, String replyToEmail) {
-        log.info("Preparing to send email to: {} from: {} via SMTP", to, fromName);
+        log.info("Preparing to send email to: {} from: {} via Resend", to, fromName);
+
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            String url = "https://api.resend.com/emails";
 
-            String senderDisplay = (fromName != null) ? fromName + " via CloudBox" : "CloudBox";
-            // Reverting to simple string format for maximum Gmail compatibility
-            helper.setFrom(senderDisplay + " <" + smtpUsername + ">");
-            helper.setReplyTo(replyToEmail != null ? replyToEmail : "noreply@cloudbox.com");
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(body, true);
+            // Build request body
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("from", fromName != null ? fromName + " <" + fromEmail + ">" : fromEmail);
+            requestBody.put("to", new String[] { to });
+            requestBody.put("subject", subject);
+            requestBody.put("html", body);
 
-            log.info("Attempting SMTP handshake for {}", to);
-            mailSender.send(message);
-            log.info("SMTP SUCCESS: Message delivered to mail server for carrier: {}", to);
+            if (replyToEmail != null) {
+                requestBody.put("reply_to", replyToEmail);
+            }
+
+            // Set headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", "Bearer " + resendApiKey);
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+
+            log.info("Attempting Resend API call for {}", to);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+
+            if (response.getStatusCode() == HttpStatus.OK) {
+                log.info("✅ Email sent successfully via Resend to: {}", to);
+            } else {
+                log.error("❌ Resend API returned status: {}", response.getStatusCode());
+            }
         } catch (Exception e) {
-            log.error("SMTP CRITICAL FAILURE: Failed to transmit to {}. Internal Error: {}", to, e.getMessage());
+            log.error("❌ Email delivery failed for {}: {}", to, e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("Email delivery failed: " + e.getMessage());
         }
     }
 }

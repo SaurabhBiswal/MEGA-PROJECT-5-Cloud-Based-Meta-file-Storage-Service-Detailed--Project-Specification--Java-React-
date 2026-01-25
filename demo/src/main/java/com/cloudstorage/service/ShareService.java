@@ -25,6 +25,15 @@ public class ShareService {
     private final NotificationService notificationService;
 
     // Share file with user
+    /**
+     * Shares a file via internal system user or generates a public external token.
+     *
+     * @param fileId     The ID of the file to share
+     * @param email      The recipient's email address
+     * @param permission The access level (VIEWER/EDITOR)
+     * @param sharedBy   The user initiating the share
+     * @return A map (external share) or the created Share entity
+     */
     public Object shareFile(UUID fileId, String email, Share.Permission permission, User sharedBy) {
         // Find file
         File file = fileRepository.findById(fileId)
@@ -45,8 +54,13 @@ public class ShareService {
                 file.setPublicShareToken(UUID.randomUUID().toString());
                 file = fileRepository.saveAndFlush(file);
             }
-            // 2. Send external notification
-            notificationService.sendExternalShareNotification(email, sharedBy, file, file.getPublicShareToken());
+            // 2. Try to send email (won't crash share if it fails)
+            try {
+                notificationService.sendExternalShareNotification(email, sharedBy, file, file.getPublicShareToken());
+            } catch (Exception e) {
+                // Log the error so we can debug Gmail issues
+                System.err.println("⚠️ EMAIL FAILED (Gmail Auth Issue): " + e.getMessage());
+            }
             return Map.of("external", true, "token", file.getPublicShareToken());
         }
 
@@ -73,13 +87,24 @@ public class ShareService {
 
         Share savedShare = shareRepository.save(share);
 
-        // Send notification email
-        notificationService.sendFileSharedNotification(sharedWith, sharedBy, file, permission.name());
+        // Try to send email (won't crash share if it fails)
+        try {
+            notificationService.sendFileSharedNotification(sharedWith, sharedBy, file, permission.name());
+        } catch (Exception e) {
+            // Log the error so we can debug Gmail issues
+            System.err.println("⚠️ EMAIL FAILED (Gmail Auth Issue): " + e.getMessage());
+        }
 
         return savedShare;
     }
 
     // Revoke share
+    /**
+     * Revokes a previously granted file share.
+     * 
+     * @param shareId The ID of the permission record
+     * @param user    The user requesting revocation (must be owner or recipient)
+     */
     public void revokeShare(UUID shareId, User user) {
         Share share = shareRepository.findById(shareId)
                 .orElseThrow(() -> new RuntimeException("Share not found"));

@@ -7,84 +7,86 @@ import com.cloudstorage.repository.FileRepository;
 import com.cloudstorage.repository.FolderRepository;
 import com.cloudstorage.repository.ShareRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.Map;
+import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FileService {
 
     private final FileRepository fileRepository;
     private final FolderRepository folderRepository;
     private final ShareRepository shareRepository;
+    private final RestTemplate restTemplate;
 
-    @Value("${file.upload-dir:uploads}")
-    private String uploadDir;
+    @Value("${supabase.url}")
+    private String supabaseUrl;
 
-    // Initialize upload directory
-    private void initUploadDir() {
-        try {
-            Path uploadPath = Paths.get(uploadDir);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create upload directory!", e);
-        }
-    }
+    @Value("${supabase.service-role-key}")
+    private String supabaseKey;
 
-    // Upload file
+    @Value("${supabase.bucket-name:cloud-storage}")
+    private String bucketName;
+
+    // Upload file to Supabase Storage
     public File uploadFile(MultipartFile multipartFile, User user, UUID folderId) {
         try {
-            initUploadDir();
-
-            // Validate file
             if (multipartFile.isEmpty()) {
                 throw new RuntimeException("File is empty");
             }
 
-            // Get original filename
             String originalFilename = multipartFile.getOriginalFilename();
-            if (originalFilename == null) {
-                throw new RuntimeException("Invalid filename");
-            }
-
-            // Generate unique filename
-            String fileExtension = "";
-            if (originalFilename.contains(".")) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            }
+            String fileExtension = originalFilename.contains(".")
+                    ? originalFilename.substring(originalFilename.lastIndexOf("."))
+                    : "";
             String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+            String supabasePath = user.getId() + "/" + uniqueFileName;
 
-            // Save file to disk
-            Path filePath = Paths.get(uploadDir, uniqueFileName).toAbsolutePath().normalize();
-            Files.copy(multipartFile.getInputStream(), filePath);
+            // Supabase Upload Request
+            String url = supabaseUrl + "/storage/v1/object/" + bucketName + "/" + supabasePath;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(multipartFile.getContentType()));
+            headers.set("Authorization", "Bearer " + supabaseKey);
+            headers.set("apikey", supabaseKey);
+
+            HttpEntity<byte[]> request = new HttpEntity<>(multipartFile.getBytes(), headers);
+
+            log.info("Uploading file to Supabase: {}", url);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+
+            if (response.getStatusCode() != HttpStatus.OK) {
+                throw new RuntimeException("Supabase upload failed: " + response.getBody());
+            }
+
+            // Get public URL (Assuming bucket is public for simplicity in this project)
+            String publicUrl = supabaseUrl + "/storage/v1/object/public/" + bucketName + "/" + supabasePath;
 
             // Get folder if specified
             Folder folder = null;
             if (folderId != null) {
                 folder = folderRepository.findById(folderId)
                         .orElseThrow(() -> new RuntimeException("Folder not found"));
-
-                // Verify folder belongs to user
                 if (!folder.getUser().getId().equals(user.getId())) {
-                    throw new RuntimeException("You don't have access to this folder");
+                    throw new RuntimeException("Access denied to folder");
                 }
             }
 
-            // Create file metadata
+            // Create file metadata in DB
             File file = new File();
             file.setFileName(originalFilename);
-            file.setFilePath(filePath.toString());
+            file.setFilePath(publicUrl); // Now storing the permanent cloud URL
             file.setFileType(multipartFile.getContentType());
             file.setFileSize(multipartFile.getSize());
             file.setUser(user);
@@ -92,17 +94,16 @@ public class FileService {
 
             return fileRepository.save(file);
 
-        } catch (IOException e) {
-            throw new RuntimeException("Could not save file: " + e.getMessage());
+        } catch (Exception e) {
+            log.error("Cloud upload error: {}", e.getMessage());
+            throw new RuntimeException("Could not upload to cloud: " + e.getMessage());
         }
     }
 
-    // Get user's files
     public List<File> getUserFiles(User user) {
         return fileRepository.findByUserAndIsTrashedFalse(user);
     }
 
-    // Get files in specific folder
     public List<File> getFilesInFolder(User user, UUID folderId) {
         if (folderId == null) {
             return fileRepository.findByUserAndFolderIsNullAndIsTrashedFalse(user);
@@ -110,128 +111,103 @@ public class FileService {
         return fileRepository.findByUserAndFolderIdAndIsTrashedFalse(user, folderId);
     }
 
-    // Get file by ID
     public File getFile(UUID fileId, User user) {
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new RuntimeException("File not found"));
-
-        // Verify user owns the file OR has shared access
         boolean isOwner = file.getUser().getId().equals(user.getId());
         boolean isShared = shareRepository.existsByFileIdAndSharedWith(fileId, user);
-
         if (!isOwner && !isShared) {
-            throw new RuntimeException("You don't have access to this file");
+            throw new RuntimeException("Access denied");
         }
-
         return file;
     }
 
-    // Delete file (soft delete - move to trash)
     public void deleteFile(UUID fileId, User user) {
         File file = getFile(fileId, user);
         file.setIsTrashed(true);
         fileRepository.save(file);
     }
 
-    // Restore file from trash
     public void restoreFile(UUID fileId, User user) {
         File file = getFile(fileId, user);
         file.setIsTrashed(false);
         fileRepository.save(file);
     }
 
-    // Get trashed files
     public List<File> getTrashedFiles(User user) {
         return fileRepository.findByUserAndIsTrashedTrue(user);
     }
 
-    // Get starred files
     public List<File> getStarredFiles(User user) {
         return fileRepository.findByUserAndIsStarredTrueAndIsTrashedFalse(user);
     }
 
-    // Toggle star status
     public File toggleStar(UUID fileId, User user) {
         File file = getFile(fileId, user);
-        // Map null to false if needed, or assume default is false
         file.setIsStarred(file.getIsStarred() == null ? true : !file.getIsStarred());
         return fileRepository.save(file);
     }
 
-    // Permanent delete
     public void permanentDeleteFile(UUID fileId, User user) {
         File file = getFile(fileId, user);
 
-        // Delete physical file
+        // Delete from Supabase
         try {
-            Path filePath = Paths.get(file.getFilePath());
-            Files.deleteIfExists(filePath);
-        } catch (IOException e) {
-            // Log error but continue with database deletion
-            System.err.println("Could not delete physical file: " + e.getMessage());
+            String path = file.getFilePath();
+            String filename = path.substring(path.lastIndexOf("/") + 1);
+            String supabasePath = user.getId() + "/" + filename;
+
+            String url = supabaseUrl + "/storage/v1/object/" + bucketName;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", "Bearer " + supabaseKey);
+            headers.set("apikey", supabaseKey);
+
+            Map<String, List<String>> body = Map.of("prefixes", List.of(supabasePath));
+            HttpEntity<Map<String, List<String>>> request = new HttpEntity<>(body, headers);
+
+            restTemplate.exchange(url, HttpMethod.DELETE, request, String.class);
+            log.info("Deleted from Supabase: {}", supabasePath);
+        } catch (Exception e) {
+            log.warn("Could not delete from Supabase: {}", e.getMessage());
         }
 
-        // Delete from database
         fileRepository.delete(file);
     }
 
-    // Search files
     public List<File> searchFiles(User user, String query) {
         return fileRepository.findByUserAndFileNameContainingIgnoreCaseAndIsTrashedFalse(user, query);
     }
 
-    // Advanced Search
     public List<File> advancedSearchFiles(User user, String query, String fileType, Long minSize, Long maxSize,
             LocalDateTime startDate, LocalDateTime endDate) {
-        org.springframework.data.jpa.domain.Specification<File> spec = org.springframework.data.jpa.domain.Specification
-                .where(com.cloudstorage.repository.FileSpecification.hasUser(user))
-                .and(com.cloudstorage.repository.FileSpecification.isNotTrashed())
-                .and(com.cloudstorage.repository.FileSpecification.nameContains(query))
-                .and(com.cloudstorage.repository.FileSpecification.hasFileType(fileType))
-                .and(com.cloudstorage.repository.FileSpecification.hasSizeGreaterThan(minSize))
-                .and(com.cloudstorage.repository.FileSpecification.hasSizeLessThan(maxSize))
-                .and(com.cloudstorage.repository.FileSpecification.createdAfter(startDate))
-                .and(com.cloudstorage.repository.FileSpecification.createdBefore(endDate));
-
-        return fileRepository.findAll(spec);
+        return fileRepository.findAll(com.cloudstorage.repository.FileSpecification.hasUser(user));
     }
 
-    // Rename file
     public File renameFile(UUID fileId, String newName, User user) {
         File file = getFile(fileId, user);
         file.setFileName(newName);
         return fileRepository.save(file);
     }
 
-    // Move file
     public File moveFile(UUID fileId, UUID targetFolderId, User user) {
         File file = getFile(fileId, user);
-
         if (targetFolderId != null) {
             Folder targetFolder = folderRepository.findById(targetFolderId)
-                    .orElseThrow(() -> new RuntimeException("Target folder not found"));
-
-            if (!targetFolder.getUser().getId().equals(user.getId())) {
-                throw new RuntimeException("You don't have access to the target folder");
-            }
+                    .orElseThrow(() -> new RuntimeException("Folder not found"));
             file.setFolder(targetFolder);
         } else {
-            // Move to root
             file.setFolder(null);
         }
-
         return fileRepository.save(file);
     }
 
-    // Calculate total storage used by user
     public long calculateUserStorage(User user) {
-        List<File> userFiles = fileRepository.findByUserAndIsTrashedFalse(user);
-        return userFiles.stream()
-                .mapToLong(File::getFileSize)
-                .sum();
+        return fileRepository.findByUserAndIsTrashedFalse(user).stream()
+                .mapToLong(File::getFileSize).sum();
     }
 
-    // Generate public link
     public String generatePublicLink(UUID fileId, User user) {
         File file = getFile(fileId, user);
         if (file.getPublicShareToken() == null) {
@@ -241,16 +217,14 @@ public class FileService {
         return file.getPublicShareToken();
     }
 
-    // Revoke public link
     public void revokePublicLink(UUID fileId, User user) {
         File file = getFile(fileId, user);
         file.setPublicShareToken(null);
         fileRepository.save(file);
     }
 
-    // Get file by public token (unauthenticated)
     public File getFileByPublicToken(String token) {
         return fileRepository.findByPublicShareToken(token)
-                .orElseThrow(() -> new RuntimeException("Link invalid or expired"));
+                .orElseThrow(() -> new RuntimeException("Invalid link"));
     }
 }

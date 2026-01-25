@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -16,50 +17,58 @@ import java.util.Map;
 @Slf4j
 public class EmailService {
 
-    @Value("${resend.api.key}")
-    private String resendApiKey;
+    @Value("${sendgrid.api.key:placeholder}")
+    private String sendGridApiKey;
 
-    @Value("${resend.from.email:noreply@cloudbox.com}")
+    @Value("${sendgrid.from.email:punpunsaurabh2002@gmail.com}")
     private String fromEmail;
 
     private final RestTemplate restTemplate;
 
     @Async
     public void sendEmail(String to, String subject, String body, String fromName, String replyToEmail) {
-        log.info("Preparing to send email to: {} from: {} via Resend", to, fromName);
+        log.info("Preparing to send email to: {} from: {} via SendGrid", to, fromName);
 
         try {
-            String url = "https://api.resend.com/emails";
+            String url = "https://api.sendgrid.com/v3/mail/send";
 
-            // Build request body
+            // Build SendGrid Request Structure
             Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("from", fromName != null ? fromName + " <" + fromEmail + ">" : fromEmail);
-            requestBody.put("to", new String[] { to });
-            requestBody.put("subject", subject);
-            requestBody.put("html", body);
+
+            // Personalizations
+            Map<String, Object> personalization = new HashMap<>();
+            personalization.put("to", List.of(Map.of("email", to)));
+            personalization.put("subject", subject);
+            requestBody.put("personalizations", List.of(personalization));
+
+            // From
+            requestBody.put("from", Map.of("email", fromEmail, "name", fromName != null ? fromName : "CloudBox"));
+
+            // Content
+            requestBody.put("content", List.of(Map.of("type", "text/html", "value", body)));
 
             if (replyToEmail != null) {
-                requestBody.put("reply_to", replyToEmail);
+                requestBody.put("reply_to", Map.of("email", replyToEmail));
             }
 
-            // Set headers
+            // Headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("Authorization", "Bearer " + resendApiKey);
+            headers.set("Authorization", "Bearer " + sendGridApiKey);
 
             HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
 
-            log.info("Attempting Resend API call for {}", to);
+            log.info("Attempting SendGrid API call for {}", to);
+            // SendGrid returns 202 Accepted on success
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
 
-            if (response.getStatusCode() == HttpStatus.OK) {
-                log.info("✅ Email sent successfully via Resend to: {}", to);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                log.info("✅ Email sent successfully via SendGrid to: {}", to);
             } else {
-                log.error("❌ Resend API returned status: {}", response.getStatusCode());
+                log.error("❌ SendGrid API returned status: {} body: {}", response.getStatusCode(), response.getBody());
             }
         } catch (Exception e) {
-            log.error("❌ Email delivery failed for {}: {}", to, e.getMessage());
-            e.printStackTrace();
+            log.error("❌ Email delivery failed for SendGrid {}: {}", to, e.getMessage());
         }
     }
 }

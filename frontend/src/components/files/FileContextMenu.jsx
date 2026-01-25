@@ -23,7 +23,8 @@ const FileContextMenu = ({ file, onDelete, onRename, onStar, onShare, onOpen, on
 
     const handleDownload = (e) => {
         e.stopPropagation();
-        window.open(`http://localhost:8080/api/files/${file.id}/download`, '_blank');
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+        window.open(`${baseUrl}/files/${file.id}/download`, '_blank');
         setIsOpen(false);
     };
 

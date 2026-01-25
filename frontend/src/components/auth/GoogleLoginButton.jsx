@@ -1,8 +1,6 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
-import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 
 const GoogleLoginButton = () => {
     const { loginWithToken } = useAuth();
@@ -11,7 +9,7 @@ const GoogleLoginButton = () => {
     const handleGoogleSuccess = async (credentialResponse) => {
         try {
             // credentialResponse.credential is the ID Token we need for the backend verifier
-            const response = await axios.post('http://localhost:8080/api/auth/google', {
+            const response = await api.post('/auth/google', {
                 idToken: credentialResponse.credential
             });
 

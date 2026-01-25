@@ -104,11 +104,13 @@ const fileService = {
 
     getDownloadUrl: (id) => {
         const token = localStorage.getItem('token');
-        return `http://localhost:8080/api/files/${id}/download?token=${token}`;
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+        return `${baseUrl}/files/${id}/download?token=${token}`;
     },
 
     getPublicDownloadUrl: (token) => {
-        return `http://localhost:8080/api/files/public/download/${token}`;
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+        return `${baseUrl}/files/public/download/${token}`;
     }
 };
 

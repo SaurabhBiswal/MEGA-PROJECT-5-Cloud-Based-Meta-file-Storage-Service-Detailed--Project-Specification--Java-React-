@@ -22,7 +22,7 @@ public class EmailService {
     @Value("${resend.from.email:noreply@cloudbox.com}")
     private String fromEmail;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Async
     public void sendEmail(String to, String subject, String body, String fromName, String replyToEmail) {

@@ -14,6 +14,9 @@ public class NotificationService {
     private final EmailService emailService;
     private final com.cloudstorage.repository.NotificationRepository notificationRepository;
 
+    @org.springframework.beans.factory.annotation.Value("${app.frontend-url:http://localhost:5173}")
+    private String frontendUrl;
+
     /**
      * Send notification when a file is shared
      */
@@ -41,10 +44,10 @@ public class NotificationService {
                                 <p><b>File:</b> %s</p>
                                 <p><b>Permission:</b> %s</p>
                             </div>
-                            <a href="http://localhost:5173/dashboard" style="display: inline-block; background: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">View in Dashboard</a>
+                            <a href="%s/dashboard" style="display: inline-block; background: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">View in Dashboard</a>
                         </div>
                         """,
-                sharerName, file.getFileName(), permission.equals("VIEWER") ? "Can view" : "Can edit");
+                sharerName, file.getFileName(), permission.equals("VIEWER") ? "Can view" : "Can edit", frontendUrl);
 
         emailService.sendEmail(sharedWith.getEmail(), subject, body, sharerName, sharedBy.getEmail());
         log.info("Shared notification saved and emailed for {}", sharedWith.getEmail());
@@ -66,13 +69,13 @@ public class NotificationService {
                             <p><b>%s</b> invited you to view a file on CloudBox.</p>
                             <p>Since you don't have an account, you can access it directly via this secure link:</p>
                             <div style="margin: 30px 0;">
-                                <a href="http://localhost:5173/public-view/%s" style="background: #10b981; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;">Open Private Link</a>
+                                <a href="%s/public-view/%s" style="background: #10b981; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;">Open Private Link</a>
                             </div>
                             <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 24px 0;">
-                            <p style="font-size: 12px; color: #64748b;">Want your own secure storage? <a href="http://localhost:5173/signup">Sign up for CloudBox</a></p>
+                            <p style="font-size: 12px; color: #64748b;">Want your own secure storage? <a href="%s/signup">Sign up for CloudBox</a></p>
                         </div>
                         """,
-                sharerName, publicToken);
+                sharerName, frontendUrl, publicToken, frontendUrl);
 
         emailService.sendEmail(email, subject, body, sharerName, sharedBy.getEmail());
         log.info("External notification transmitted to Gmail for {}", email);

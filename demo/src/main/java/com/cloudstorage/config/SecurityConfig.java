@@ -65,6 +65,7 @@ public class SecurityConfig {
                 "http://localhost:5174",
                 "http://localhost:3000",
                 "https://mega-project-5-cloud-based-meta-fil.vercel.app",
+                "https://mega-project-5-cloud-based-meta-fil-one.vercel.app",
                 "https://melodious-curiosity-production.up.railway.app"));
 
         // ALLOW ALL METHODS

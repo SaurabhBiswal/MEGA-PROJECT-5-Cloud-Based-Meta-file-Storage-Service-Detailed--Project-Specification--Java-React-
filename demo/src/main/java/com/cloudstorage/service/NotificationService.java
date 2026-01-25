@@ -21,7 +21,7 @@ public class NotificationService {
      * Send notification when a file is shared
      */
     public void sendFileSharedNotification(User sharedWith, User sharedBy, com.cloudstorage.model.File file,
-            String permission) {
+            String permission, String publicToken) {
         String sharerName = sharedBy.getName() != null ? sharedBy.getName() : sharedBy.getEmail();
         String subject = String.format("%s shared a file with you", sharerName);
 
@@ -44,10 +44,15 @@ public class NotificationService {
                                 <p><b>File:</b> %s</p>
                                 <p><b>Permission:</b> %s</p>
                             </div>
-                            <a href="%s/dashboard" style="display: inline-block; background: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">View in Dashboard</a>
+                            <div style="margin: 30px 0; text-align: center;">
+                                <a href="%s/public-view/%s" style="display: inline-block; background: #10b981; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-bottom: 15px;">Open Private Link</a>
+                                <br>
+                                <a href="%s/dashboard" style="display: inline-block; background: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">View in Dashboard</a>
+                            </div>
                         </div>
                         """,
-                sharerName, file.getFileName(), permission.equals("VIEWER") ? "Can view" : "Can edit", frontendUrl);
+                sharerName, file.getFileName(), permission.equals("VIEWER") ? "Can view" : "Can edit", frontendUrl,
+                publicToken, frontendUrl);
 
         emailService.sendEmail(sharedWith.getEmail(), subject, body, sharerName, sharedBy.getEmail());
         log.info("Shared notification saved and emailed for {}", sharedWith.getEmail());

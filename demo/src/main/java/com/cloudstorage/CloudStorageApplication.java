@@ -2,8 +2,12 @@ package com.cloudstorage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@EnableAsync
 public class CloudStorageApplication {
     public static void main(String[] args) {
         SpringApplication.run(CloudStorageApplication.class, args);
@@ -15,5 +19,10 @@ public class CloudStorageApplication {
         System.out.println("   - http://localhost:8080/api/test");
         System.out.println("   - http://localhost:8080/api/db-test");
         System.out.println("   - http://localhost:8080/api/create-users-table");
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }

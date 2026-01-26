@@ -25,6 +25,8 @@ public class CloudStorageApplication {
     public RestTemplate restTemplate() {
         org.springframework.http.client.SimpleClientHttpRequestFactory factory = new org.springframework.http.client.SimpleClientHttpRequestFactory();
         factory.setBufferRequestBody(false);
+        factory.setConnectTimeout(300000); // 5 minutes
+        factory.setReadTimeout(300000); // 5 minutes
         return new RestTemplate(factory);
     }
 }

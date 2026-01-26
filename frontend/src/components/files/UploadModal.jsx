@@ -63,6 +63,7 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
         const totalFiles = files.length;
 
         let anySuccess = false;
+        let anyError = false;
         for (let i = 0; i < totalFiles; i++) {
             const fileItem = files[i];
             try {
@@ -77,20 +78,24 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
                 anySuccess = true;
             } catch (error) {
                 console.error("Upload failed for", fileItem.name, error);
-                setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'error' } : f));
-                // Keep the modal open so user can see the error
+                setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'error', error: error.message } : f));
+                anyError = true;
             }
         }
 
         setUploading(false);
-        if (anySuccess) {
-            onUploadSuccess(); // Refresh dashboard only if something uploaded
-            // Optionally close only if all succeeded, or just close after delay
+
+        // Show success only if everything went perfectly
+        if (anySuccess && !anyError) {
+            onUploadSuccess();
             setTimeout(() => {
                 onClose();
                 setFiles([]);
                 setProgress(0);
             }, 1000);
+        } else if (anySuccess) {
+            // Partial success
+            onUploadSuccess(); // Still refresh to show what did work
         }
     };
 

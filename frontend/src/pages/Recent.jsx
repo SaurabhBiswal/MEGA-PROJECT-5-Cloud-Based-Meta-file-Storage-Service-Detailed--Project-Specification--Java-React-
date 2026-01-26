@@ -76,13 +76,13 @@ const Recent = () => {
                             key={file.id}
                             file={file}
                             onClick={() => setPreviewFile(file)}
-                            onShareClick={() => setShareFile(file)}
-                            onDelete={() => handleDelete(file)}
-                            onStar={() => handleStar(file)}
-                            onDownload={() => window.open(fileService.getDownloadUrl(file.id), '_blank')}
-                            onRename={() => {
-                                const newName = prompt("New name:", file.fileName);
-                                if (newName) fileService.renameFile(file.id, newName).then(() => fetchRecentFiles());
+                            onShareClick={(f) => setShareFile(f)}
+                            onDelete={(f) => handleDelete(f)}
+                            onStar={(f) => handleStar(f)}
+                            onDownload={(f) => window.open(fileService.getDownloadUrl(f.id), '_blank')}
+                            onRename={(f) => {
+                                const newName = prompt("New name:", f.fileName);
+                                if (newName) fileService.renameFile(f.id, newName).then(() => fetchRecentFiles());
                             }}
                         />
                     ))}

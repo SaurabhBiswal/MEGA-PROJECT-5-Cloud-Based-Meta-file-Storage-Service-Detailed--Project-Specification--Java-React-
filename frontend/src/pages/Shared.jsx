@@ -101,12 +101,12 @@ const Shared = () => {
                             <FileCard
                                 file={share.file}
                                 onClick={() => setPreviewFile(share.file)}
-                                onStar={() => handleStar(share.file.id)}
-                                onDelete={() => handleDelete(share.file.id)}
-                                onDownload={() => handleDownload(share.file)}
-                                onRename={() => handleRename(share.file.id)}
-                                onShareClick={() => setShareFile(share.file)}
-                                onMove={() => handleMove(share.file)}
+                                onStar={(f) => handleStar(f.id)}
+                                onDelete={(f) => handleDelete(f.id)}
+                                onDownload={(f) => window.open(fileService.getDownloadUrl(f.id), '_blank')}
+                                onRename={(f) => handleRename(f.id)}
+                                onShareClick={(f) => setShareFile(f)}
+                                onMove={(f) => handleMove(f)}
                             />
                             <div className="absolute top-2 right-2 bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">
                                 {share.permission === 'VIEWER' ? 'View only' : 'Can edit'}

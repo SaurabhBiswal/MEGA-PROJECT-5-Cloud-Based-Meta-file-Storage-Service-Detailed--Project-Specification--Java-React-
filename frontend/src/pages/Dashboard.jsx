@@ -209,12 +209,14 @@ const Dashboard = () => {
                                         key={file.id}
                                         file={file}
                                         onClick={() => setPreviewFile(file)}
-                                        onShareClick={() => setShareFile(file)}
-                                        onDelete={() => handleDeleteFile(file)}
-                                        onRename={() => setRenamingFile(file)}
-                                        onStar={() => handleStarFile(file)}
-                                        onMove={() => setMovingFile(file)}
-                                        onDownload={() => window.open(fileService.getDownloadUrl(file.id), '_blank')}
+                                        onShareClick={(f) => setShareFile(f)}
+                                        onDelete={(f) => handleDeleteFile(f)}
+                                        onStar={(f) => handleStarFile(f)}
+                                        onDownload={(f) => window.open(fileService.getDownloadUrl(f.id), '_blank')}
+                                        onRename={(f) => {
+                                            const newName = prompt("New name:", f.fileName);
+                                            if (newName) fileService.renameFile(f.id, newName).then(() => fetchData());
+                                        }}
                                     />
                                 ))}
                             </div>

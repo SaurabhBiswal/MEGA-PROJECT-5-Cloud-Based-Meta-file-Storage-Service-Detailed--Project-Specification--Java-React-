@@ -4,8 +4,8 @@ const authService = {
     login: async (email, password) => {
         const response = await api.post('/auth/login', { email, password });
         if (response.data.token) {
-            sessionStorage.setItem('token', response.data.token);
-            sessionStorage.setItem('user', JSON.stringify(response.data)); // Optional: store user info if needed
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data));
         }
         return response.data;
     },
@@ -16,17 +16,17 @@ const authService = {
     },
 
     logout: () => {
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         window.location.href = '/login';
     },
 
     getCurrentUser: () => {
-        return JSON.parse(sessionStorage.getItem('user'));
+        return JSON.parse(localStorage.getItem('user'));
     },
 
     isAuthenticated: () => {
-        return !!sessionStorage.getItem('token');
+        return !!localStorage.getItem('token');
     }
 };
 

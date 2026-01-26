@@ -42,7 +42,7 @@ public class ShareService {
                 .orElseThrow(() -> new RuntimeException("File not found"));
 
         // Check permission (only owner can share for now)
-        if (!file.getUser().getId().equals(sharedBy.getId())) {
+        if (!file.getUser().getId().toString().equals(sharedBy.getId().toString())) {
             throw new RuntimeException("You don't have permission to share this file");
         }
 
@@ -67,7 +67,7 @@ public class ShareService {
 
         User sharedWith = sharedWithOpt.get();
 
-        if (sharedWith.getId().equals(sharedBy.getId())) {
+        if (sharedWith.getId().toString().equals(sharedBy.getId().toString())) {
             throw new RuntimeException("You cannot share file with yourself");
         }
 
@@ -110,8 +110,8 @@ public class ShareService {
                 .orElseThrow(() -> new RuntimeException("Share not found"));
 
         // Only owner or the person it was shared with can remove
-        if (!share.getSharedBy().getId().equals(user.getId()) &&
-                !share.getSharedWith().getId().equals(user.getId())) {
+        if (!share.getSharedBy().getId().toString().equals(user.getId().toString()) &&
+                !share.getSharedWith().getId().toString().equals(user.getId().toString())) {
             throw new RuntimeException("Permission denied");
         }
 
@@ -134,7 +134,7 @@ public class ShareService {
                 .orElseThrow(() -> new RuntimeException("File not found"));
 
         // Check if user owns the file
-        if (!file.getUser().getId().equals(user.getId())) {
+        if (!file.getUser().getId().toString().equals(user.getId().toString())) {
             throw new RuntimeException("You don't have permission to view shares for this file");
         }
 

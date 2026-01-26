@@ -116,7 +116,7 @@ public class FileService {
     public File getFile(UUID fileId, User user) {
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new RuntimeException("File not found"));
-        boolean isOwner = file.getUser().getId().equals(user.getId());
+        boolean isOwner = file.getUser().getId().toString().equals(user.getId().toString());
         boolean isShared = shareRepository.existsByFileIdAndSharedWith(fileId, user);
         if (!isOwner && !isShared) {
             throw new RuntimeException("Access denied");
@@ -214,7 +214,7 @@ public class FileService {
 
     private void checkPermission(UUID fileId, User user, com.cloudstorage.model.Share.Permission required) {
         File file = fileRepository.findById(fileId).orElseThrow();
-        if (file.getUser().getId().equals(user.getId()))
+        if (file.getUser().getId().toString().equals(user.getId().toString()))
             return; // Owner has all permissions
 
         com.cloudstorage.model.Share share = shareRepository.findByFileIdAndSharedWith(fileId, user)

@@ -1,5 +1,10 @@
 package com.cloudstorage.service;
 
+import com.amazonaws.HttpMethod;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.cloudstorage.model.File;
 import com.cloudstorage.model.Folder;
 import com.cloudstorage.model.User;
@@ -9,16 +14,14 @@ import com.cloudstorage.repository.ShareRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.Map;
-import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
@@ -28,18 +31,12 @@ public class FileService {
     private final FileRepository fileRepository;
     private final FolderRepository folderRepository;
     private final ShareRepository shareRepository;
-    private final RestTemplate restTemplate;
+    private final AmazonS3 s3Client;
 
-    @Value("${supabase.url}")
-    private String supabaseUrl;
-
-    @Value("${supabase.service-role-key}")
-    private String supabaseKey;
-
-    @Value("${supabase.bucket-name:cloud-storage}")
+    @Value("${aws.s3.bucket}")
     private String bucketName;
 
-    // Upload file to Supabase Storage
+    // Upload file to AWS S3
     public File uploadFile(MultipartFile multipartFile, User user, UUID folderId) {
         try {
             if (multipartFile.isEmpty()) {
@@ -51,29 +48,22 @@ public class FileService {
                     ? originalFilename.substring(originalFilename.lastIndexOf("."))
                     : "";
             String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
-            String supabasePath = user.getId() + "/" + uniqueFileName;
+            String s3Path = user.getId() + "/" + uniqueFileName;
 
-            // Supabase Upload Request
-            String url = supabaseUrl + "/storage/v1/object/" + bucketName + "/" + supabasePath;
+            // Prepare metadata
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType(multipartFile.getContentType());
+            metadata.setContentLength(multipartFile.getSize());
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType(multipartFile.getContentType()));
-            headers.set("Authorization", "Bearer " + supabaseKey);
-            headers.set("apikey", supabaseKey);
+            log.info("Uploading file to S3: {}/{} (Size: {} bytes)", bucketName, s3Path, multipartFile.getSize());
 
-            // Use getResource() for streaming instead of getBytes() to prevent OOM
-            HttpEntity<org.springframework.core.io.Resource> request = new HttpEntity<>(multipartFile.getResource(),
-                    headers);
+            // Upload to S3
+            s3Client.putObject(new PutObjectRequest(bucketName, s3Path, multipartFile.getInputStream(), metadata));
 
-            log.info("Streaming file to Supabase: {} (Size: {} bytes)", url, multipartFile.getSize());
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
-
-            if (!response.getStatusCode().is2xxSuccessful()) {
-                throw new RuntimeException("Supabase upload failed: " + response.getBody());
-            }
-
-            // Get public URL (Assuming bucket is public for simplicity in this project)
-            String publicUrl = supabaseUrl + "/storage/v1/object/public/" + bucketName + "/" + supabasePath;
+            // Generate a permanent S3 URL (Note: This might not be accessible if bucket is
+            // private,
+            // but we use presigned URLs for access later)
+            String s3Url = s3Client.getUrl(bucketName, s3Path).toString();
 
             // Get folder if specified
             Folder folder = null;
@@ -88,26 +78,18 @@ public class FileService {
             // Create file metadata in DB
             File file = new File();
             file.setFileName(originalFilename);
-            file.setFilePath(publicUrl); // Now storing the permanent cloud URL
+            file.setFilePath(s3Url); // Storing the S3 Object URL
             file.setFileType(multipartFile.getContentType());
             file.setFileSize(multipartFile.getSize());
             file.setUser(user);
             file.setFolder(folder);
+            file.setLastOpenedAt(LocalDateTime.now());
 
             return fileRepository.save(file);
 
-        } catch (org.springframework.web.client.HttpClientErrorException e) {
-            String responseBody = e.getResponseBodyAsString();
-            log.error("Supabase Upload Error: {} - Body: {}", e.getStatusCode(), responseBody);
-
-            if (responseBody.contains("exceeded the maximum allowed size")) {
-                throw new RuntimeException(
-                        "Supabase Storage Limit Reached! Go to Supabase Dashboard > Storage > Settings and increase 'Upload file size limit' to 5GB.");
-            }
-            throw new RuntimeException("Cloud upload failed: " + responseBody);
         } catch (Exception e) {
-            log.error("Cloud upload error: {}", e.getMessage());
-            throw new RuntimeException("Could not upload to cloud: " + e.getMessage());
+            log.error("AWS S3 upload error: {}", e.getMessage());
+            throw new RuntimeException("Could not upload to S3: " + e.getMessage());
         }
     }
 
@@ -137,14 +119,12 @@ public class FileService {
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new RuntimeException("File not found"));
 
-        // If user is the owner, move to trash
         if (file.getUser().getId().toString().equals(user.getId().toString())) {
             file.setIsTrashed(true);
             fileRepository.save(file);
             return;
         }
 
-        // If user is a recipient, revoke their access only (Remove from their view)
         com.cloudstorage.model.Share share = shareRepository.findByFileIdAndSharedWith(fileId, user)
                 .orElseThrow(
                         () -> new RuntimeException("Access denied: You do not have permission to remove this file."));
@@ -170,13 +150,11 @@ public class FileService {
     public Object toggleStar(UUID fileId, User user) {
         File file = fileRepository.findById(fileId).orElseThrow();
 
-        // 1. If Owner, toggle File star
         if (file.getUser().getId().toString().equals(user.getId().toString())) {
             file.setIsStarred(file.getIsStarred() == null ? true : !file.getIsStarred());
             return fileRepository.save(file);
         }
 
-        // 2. If Shared Recipient, toggle Share star
         com.cloudstorage.model.Share share = shareRepository.findByFileIdAndSharedWith(fileId, user)
                 .orElseThrow(() -> new RuntimeException("Access denied: You don't have permission to star this file."));
 
@@ -187,26 +165,17 @@ public class FileService {
     public void permanentDeleteFile(UUID fileId, User user) {
         File file = getFile(fileId, user);
 
-        // Delete from Supabase
+        // Delete from S3
         try {
             String path = file.getFilePath();
-            String filename = path.substring(path.lastIndexOf("/") + 1);
-            String supabasePath = user.getId() + "/" + filename;
+            // Extract key from URL: s3-endpoint/bucket/user-id/filename
+            // or simply use the fact that our key is user-id/filename
+            String key = file.getUser().getId() + "/" + path.substring(path.lastIndexOf("/") + 1);
 
-            String url = supabaseUrl + "/storage/v1/object/" + bucketName;
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("Authorization", "Bearer " + supabaseKey);
-            headers.set("apikey", supabaseKey);
-
-            Map<String, List<String>> body = Map.of("prefixes", List.of(supabasePath));
-            HttpEntity<Map<String, List<String>>> request = new HttpEntity<>(body, headers);
-
-            restTemplate.exchange(url, HttpMethod.DELETE, request, String.class);
-            log.info("Deleted from Supabase: {}", supabasePath);
+            log.info("Deleting from S3: {}/{}", bucketName, key);
+            s3Client.deleteObject(bucketName, key);
         } catch (Exception e) {
-            log.warn("Could not delete from Supabase: {}", e.getMessage());
+            log.warn("Could not delete from S3: {}", e.getMessage());
         }
 
         fileRepository.delete(file);
@@ -217,17 +186,13 @@ public class FileService {
     }
 
     public List<File> getRecentFiles(User user) {
-        // 1. Get owned files sorted by lastOpenedAt
         List<File> ownedFiles = fileRepository.findByUserAndIsTrashedFalse(user);
-
-        // 2. Get shared files
         List<com.cloudstorage.model.Share> sharedWithMe = shareRepository.findBySharedWith(user);
         List<File> sharedFiles = sharedWithMe.stream()
                 .map(com.cloudstorage.model.Share::getFile)
                 .filter(f -> !f.getIsTrashed())
                 .toList();
 
-        // 3. Combine and sort
         java.util.List<File> combined = new java.util.ArrayList<>();
         combined.addAll(ownedFiles);
         combined.addAll(sharedFiles);
@@ -236,10 +201,6 @@ public class FileService {
                 .sorted((f1, f2) -> {
                     LocalDateTime t1 = f1.getLastOpenedAt() != null ? f1.getLastOpenedAt() : f1.getCreatedAt();
                     LocalDateTime t2 = f2.getLastOpenedAt() != null ? f2.getLastOpenedAt() : f2.getCreatedAt();
-                    // For shared files, we actually want to check the Share record's lastOpenedAt
-                    // if possible
-                    // But for simplicity, we'll use the file's timestamp for now or refine if
-                    // needed.
                     return t2.compareTo(t1);
                 })
                 .limit(20)
@@ -258,7 +219,6 @@ public class FileService {
                 shareRepository.findByFileIdAndSharedWith(fileId, user).ifPresent(share -> {
                     share.setLastOpenedAt(LocalDateTime.now());
                     shareRepository.save(share);
-                    // Also update file's general lastOpened for global recent (Optional)
                     file.setLastOpenedAt(LocalDateTime.now());
                     fileRepository.save(file);
                 });
@@ -266,11 +226,6 @@ public class FileService {
         } catch (Exception e) {
             log.warn("Failed to report file open: {}", e.getMessage());
         }
-    }
-
-    public List<File> advancedSearchFiles(User user, String query, String fileType, Long minSize, Long maxSize,
-            LocalDateTime startDate, LocalDateTime endDate) {
-        return fileRepository.findAll(com.cloudstorage.repository.FileSpecification.hasUser(user));
     }
 
     public File renameFile(UUID fileId, String newName, User user) {
@@ -298,7 +253,7 @@ public class FileService {
     private void checkPermission(UUID fileId, User user, com.cloudstorage.model.Share.Permission required) {
         File file = fileRepository.findById(fileId).orElseThrow();
         if (file.getUser().getId().toString().equals(user.getId().toString()))
-            return; // Owner has all permissions
+            return;
 
         com.cloudstorage.model.Share share = shareRepository.findByFileIdAndSharedWith(fileId, user)
                 .orElseThrow(() -> new RuntimeException("Access denied"));
@@ -336,51 +291,26 @@ public class FileService {
 
     public String generateSignedUrl(File file) {
         try {
-            // Extract path from public URL robustly
             String path = file.getFilePath();
-            String supabasePath;
+            // In S3, the key is what we need. For our app, it's user-id/unique-filename
+            // Since we store the full URL, we extract the part after the bucket name
+            String key = file.getUser().getId() + "/" + path.substring(path.lastIndexOf("/") + 1);
 
-            // Handle different URL formats
-            if (path.contains("/object/public/" + bucketName + "/")) {
-                supabasePath = path.substring(path.indexOf("/object/public/" + bucketName + "/")
-                        + ("/object/public/" + bucketName + "/").length());
-            } else if (path.contains("/object/" + bucketName + "/")) {
-                supabasePath = path.substring(
-                        path.indexOf("/object/" + bucketName + "/") + ("/object/" + bucketName + "/").length());
-            } else if (path.contains(bucketName + "/")) {
-                supabasePath = path.substring(path.indexOf(bucketName + "/") + (bucketName + "/").length());
-            } else {
-                // Fallback: assume path IS the relative path if no bucket found
-                supabasePath = path;
-            }
+            // Set expiration to 2 hours
+            Date expiration = new Date();
+            long expTimeMillis = expiration.getTime();
+            expTimeMillis += 1000 * 60 * 60 * 2; // 2 hours
+            expiration.setTime(expTimeMillis);
 
-            String url = supabaseUrl + "/storage/v1/object/sign/" + bucketName + "/" + supabasePath;
+            log.info("Generating presigned URL for S3 key: {}", key);
+            GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, key)
+                    .withMethod(HttpMethod.GET)
+                    .withExpiration(expiration);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("Authorization", "Bearer " + supabaseKey);
-            headers.set("apikey", supabaseKey);
-
-            // Generate a 2-hour signed URL (7200 seconds)
-            Map<String, Object> body = Map.of("expiresIn", 7200);
-            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
-
-            ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, request, Map.class);
-
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                String signedPath = (String) response.getBody().get("signedURL");
-
-                // Ensure the path starts with /storage/v1
-                if (signedPath.startsWith("/object/sign")) {
-                    signedPath = "/storage/v1" + signedPath;
-                }
-
-                return supabaseUrl + signedPath;
-            }
-            throw new RuntimeException("Supabase sign failed: " + response.getBody());
+            URL url = s3Client.generatePresignedUrl(request);
+            return url.toString();
         } catch (Exception e) {
-            log.error("Failed to generate signed URL for file {}: {}", file.getFileName(), e.getMessage());
-            // Fallback to current stored path if signing fails
+            log.error("Failed to generate S3 presigned URL: {}", e.getMessage());
             return file.getFilePath();
         }
     }

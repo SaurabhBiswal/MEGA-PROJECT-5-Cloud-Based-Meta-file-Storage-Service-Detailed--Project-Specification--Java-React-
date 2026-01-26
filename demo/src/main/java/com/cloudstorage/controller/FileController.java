@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -32,7 +31,6 @@ public class FileController {
     private final FileService fileService;
     private final UserRepository userRepository;
     private final com.cloudstorage.security.JwtUtils jwtUtils;
-    private final RestTemplate restTemplate;
 
     private User getCurrentUser(String token) {
         try {

@@ -52,7 +52,10 @@ public class ShareController {
                 return ResponseEntity.ok(result);
             }
             return ResponseEntity.ok(result);
+        } catch (org.springframework.web.server.ResponseStatusException e) {
+            throw e;
         } catch (Exception e) {
+            log.error("Share failure: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -63,6 +66,8 @@ public class ShareController {
             User user = getCurrentUser();
             List<Share> shares = shareService.getSharedWithMe(user);
             return ResponseEntity.ok(shares);
+        } catch (org.springframework.web.server.ResponseStatusException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -85,7 +90,10 @@ public class ShareController {
             User user = getCurrentUser();
             List<Share> shares = shareService.getFileShares(fileId, user);
             return ResponseEntity.ok(shares);
+        } catch (org.springframework.web.server.ResponseStatusException e) {
+            throw e;
         } catch (Exception e) {
+            log.error("Fetch shares failed for {}: {}", fileId, e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

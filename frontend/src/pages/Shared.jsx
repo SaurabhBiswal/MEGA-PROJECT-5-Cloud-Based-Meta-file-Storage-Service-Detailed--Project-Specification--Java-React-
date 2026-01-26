@@ -5,12 +5,14 @@ import fileService from '../services/fileService';
 import FileCard from '../components/files/FileCard';
 import FilePreviewModal from '../components/files/FilePreviewModal';
 import ShareModal from '../components/files/ShareModal';
+import RenameModal from '../components/files/RenameModal';
 
 const Shared = () => {
     const [shares, setShares] = useState([]);
     const [loading, setLoading] = useState(true);
     const [previewFile, setPreviewFile] = useState(null);
     const [shareFile, setShareFile] = useState(null);
+    const [renamingFile, setRenamingFile] = useState(null);
 
     useEffect(() => {
         fetchSharedFiles();
@@ -104,7 +106,7 @@ const Shared = () => {
                                 onStar={(f) => handleStar(f.id)}
                                 onDelete={(f) => handleDelete(f.id)}
                                 onDownload={(f) => window.open(fileService.getDownloadUrl(f.id), '_blank')}
-                                onRename={share.permission === 'EDITOR' ? (f) => handleRename(f.id) : undefined}
+                                onRename={share.permission === 'EDITOR' ? (f) => setRenamingFile(f) : undefined}
                                 onShareClick={(f) => setShareFile(f)}
                                 onMove={share.permission === 'EDITOR' ? (f) => handleMove(f) : undefined}
                             />
@@ -126,6 +128,13 @@ const Shared = () => {
                 isOpen={!!shareFile}
                 file={shareFile}
                 onClose={() => setShareFile(null)}
+            />
+
+            <RenameModal
+                isOpen={!!renamingFile}
+                file={renamingFile}
+                onClose={() => setRenamingFile(null)}
+                onSuccess={fetchSharedFiles}
             />
         </div>
     );

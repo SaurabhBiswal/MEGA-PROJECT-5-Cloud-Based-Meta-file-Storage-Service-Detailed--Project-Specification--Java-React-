@@ -84,10 +84,11 @@ const Starred = () => {
                             key={file.id}
                             file={file}
                             onClick={() => setPreviewFile(file)}
-                            onShareClick={() => setShareFile(file)}
-                            onDelete={() => handleDeleteFile(file)}
-                            onRename={() => setRenamingFile(file)}
-                            onStar={() => handleStarFile(file)}
+                            onShareClick={(f) => setShareFile(f)}
+                            onDelete={(f) => handleDeleteFile(f)}
+                            onRename={(f) => setRenamingFile(f)}
+                            onStar={(f) => handleStarFile(f)}
+                            onDownload={(f) => window.open(fileService.getDownloadUrl(f.id), '_blank')}
                         />
                     ))}
                 </div>

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Users } from 'lucide-react';
 import shareService from '../services/shareService';
+import fileService from '../services/fileService';
 import FileCard from '../components/files/FileCard';
 import FilePreviewModal from '../components/files/FilePreviewModal';
+import ShareModal from '../components/files/ShareModal';
 
 const Shared = () => {
     const [shares, setShares] = useState([]);
     const [loading, setLoading] = useState(true);
     const [previewFile, setPreviewFile] = useState(null);
+    const [shareFile, setShareFile] = useState(null);
 
     useEffect(() => {
         fetchSharedFiles();

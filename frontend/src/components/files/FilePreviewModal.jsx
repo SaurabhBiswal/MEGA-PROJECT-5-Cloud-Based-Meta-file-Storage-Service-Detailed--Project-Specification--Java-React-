@@ -16,27 +16,7 @@ const FilePreviewModal = ({ isOpen, onClose, file, onShare, onStar }) => {
         }
 
         const fetchPreview = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const isImage = file.fileType?.startsWith('image/');
-                const isPdf = file.fileType === 'application/pdf';
-
-                if (!isImage && !isPdf) {
-                    setLoading(false);
-                    return;
-                }
-
-                const response = await fileService.downloadFile(file.id);
-                const blob = response.data;
-                const url = URL.createObjectURL(blob);
-                setPreviewUrl(url);
-            } catch (err) {
-                console.error("Failed to load preview", err);
-                setError("This file couldn't be loaded for preview.");
-            } finally {
-                setLoading(false);
-            }
+            setLoading(false); // No longer fetching via axios, just use streamUrl directly
         };
 
         fetchPreview();

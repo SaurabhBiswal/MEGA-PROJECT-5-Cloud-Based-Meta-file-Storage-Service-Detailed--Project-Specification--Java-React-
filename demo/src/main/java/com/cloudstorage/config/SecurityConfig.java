@@ -59,14 +59,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // ALLOW THESE ORIGINS
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "http://localhost:3000",
-                "https://mega-project-5-cloud-based-meta-fil.vercel.app",
-                "https://mega-project-5-cloud-based-meta-fil-one.vercel.app",
-                "https://melodious-curiosity-production.up.railway.app"));
+        // ALLOW THESE ORIGINS (Robust Pattern)
+        configuration.setAllowedOriginPatterns(List.of("*"));
 
         // ALLOW ALL METHODS
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));

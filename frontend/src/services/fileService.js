@@ -17,9 +17,6 @@ const fileService = {
 
         const response = await api.post('/files/upload', formData, {
             signal, // AbortController signal
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
             onUploadProgress: (progressEvent) => {
                 if (onProgress && progressEvent.total) {
                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);

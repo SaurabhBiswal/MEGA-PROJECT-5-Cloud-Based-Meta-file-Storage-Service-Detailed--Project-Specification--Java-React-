@@ -68,7 +68,7 @@ public class FileService {
             log.info("Streaming file to Supabase: {} (Size: {} bytes)", url, multipartFile.getSize());
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
 
-            if (response.getStatusCode() != HttpStatus.OK) {
+            if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new RuntimeException("Supabase upload failed: " + response.getBody());
             }
 

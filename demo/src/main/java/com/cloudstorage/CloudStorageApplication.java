@@ -23,6 +23,8 @@ public class CloudStorageApplication {
 
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        org.springframework.http.client.SimpleClientHttpRequestFactory factory = new org.springframework.http.client.SimpleClientHttpRequestFactory();
+        factory.setBufferRequestBody(false);
+        return new RestTemplate(factory);
     }
 }

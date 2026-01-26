@@ -62,6 +62,7 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
 
         const totalFiles = files.length;
 
+        let anySuccess = false;
         for (let i = 0; i < totalFiles; i++) {
             const fileItem = files[i];
             try {
@@ -69,23 +70,28 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'uploading' } : f));
 
                 await fileService.uploadFile(fileItem.file, folderId, (percent) => {
-                    // Update global progress (for simplicity in 1-file uploads) 
-                    // or could calculate weighted average for multi-file
                     setProgress(percent);
                 });
 
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'success' } : f));
+                anySuccess = true;
             } catch (error) {
                 console.error("Upload failed for", fileItem.name, error);
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'error' } : f));
+                // Keep the modal open so user can see the error
             }
         }
 
         setUploading(false);
-        onUploadSuccess(); // Refresh dashboard
-        onClose();
-        setFiles([]); // Reset
-        setProgress(0);
+        if (anySuccess) {
+            onUploadSuccess(); // Refresh dashboard only if something uploaded
+            // Optionally close only if all succeeded, or just close after delay
+            setTimeout(() => {
+                onClose();
+                setFiles([]);
+                setProgress(0);
+            }, 1000);
+        }
     };
 
     return (

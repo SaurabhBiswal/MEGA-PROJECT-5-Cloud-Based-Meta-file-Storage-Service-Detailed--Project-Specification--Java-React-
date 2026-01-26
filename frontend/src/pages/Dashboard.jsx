@@ -214,6 +214,7 @@ const Dashboard = () => {
                                         onRename={() => setRenamingFile(file)}
                                         onStar={() => handleStarFile(file)}
                                         onMove={() => setMovingFile(file)}
+                                        onDownload={() => window.open(fileService.getDownloadUrl(file.id), '_blank')}
                                     />
                                 ))}
                             </div>

@@ -23,8 +23,9 @@ const FileContextMenu = ({ file, onDelete, onRename, onStar, onShare, onOpen, on
 
     const handleDownload = (e) => {
         e.stopPropagation();
+        const token = sessionStorage.getItem('token');
         const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
-        window.open(`${baseUrl}/files/${file.id}/download`, '_blank');
+        window.open(`${baseUrl}/files/${file.id}/download?token=${token}`, '_blank');
         setIsOpen(false);
     };
 
@@ -34,7 +35,7 @@ const FileContextMenu = ({ file, onDelete, onRename, onStar, onShare, onOpen, on
         { icon: Star, label: file.isStarred ? 'Remove star' : 'Add star', onClick: (e) => { e.stopPropagation(); onStar(file); setIsOpen(false); }, active: file.isStarred },
         { icon: FolderInput, label: 'Move to', onClick: (e) => { e.stopPropagation(); onMove(file); setIsOpen(false); } },
         { icon: Edit, label: 'Rename', onClick: (e) => { e.stopPropagation(); onRename(file); setIsOpen(false); } },
-        { icon: Download, label: 'Download', onClick: handleDownload },
+        { icon: Download, label: 'Download', onClick: (e) => { e.stopPropagation(); onDownload(file); setIsOpen(false); } },
         { icon: Trash2, label: 'Move to trash', onClick: (e) => { e.stopPropagation(); onDelete(file); setIsOpen(false); }, danger: true },
     ];
 

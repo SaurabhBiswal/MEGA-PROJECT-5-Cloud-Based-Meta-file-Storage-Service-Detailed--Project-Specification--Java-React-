@@ -2,7 +2,7 @@ import React from 'react';
 import { FileText, Image, Film, File, Share2, Star, Globe } from 'lucide-react';
 import FileContextMenu from './FileContextMenu';
 
-const FileCard = ({ file, onClick, onShareClick, onDelete, onRename, onStar, onMove }) => {
+const FileCard = ({ file, onClick, onShareClick, onDelete, onRename, onStar, onMove, onDownload }) => {
     const getIcon = (type) => {
         if (type?.startsWith('image')) return <Image className="w-12 h-12 text-indigo-500" />;
         if (type?.startsWith('video')) return <Film className="w-12 h-12 text-rose-500" />;
@@ -47,6 +47,7 @@ const FileCard = ({ file, onClick, onShareClick, onDelete, onRename, onStar, onM
                         onShare={onShareClick}
                         onOpen={onClick}
                         onMove={onMove}
+                        onDownload={onDownload}
                     />
                 </div>
             </div>

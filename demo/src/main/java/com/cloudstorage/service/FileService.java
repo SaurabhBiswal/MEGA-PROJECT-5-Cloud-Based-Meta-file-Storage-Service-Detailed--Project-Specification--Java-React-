@@ -126,6 +126,7 @@ public class FileService {
 
     public void deleteFile(UUID fileId, User user) {
         File file = getFile(fileId, user);
+        checkPermission(fileId, user, com.cloudstorage.model.Share.Permission.EDITOR);
         file.setIsTrashed(true);
         fileRepository.save(file);
     }
@@ -193,12 +194,14 @@ public class FileService {
 
     public File renameFile(UUID fileId, String newName, User user) {
         File file = getFile(fileId, user);
+        checkPermission(fileId, user, com.cloudstorage.model.Share.Permission.EDITOR);
         file.setFileName(newName);
         return fileRepository.save(file);
     }
 
     public File moveFile(UUID fileId, UUID targetFolderId, User user) {
         File file = getFile(fileId, user);
+        checkPermission(fileId, user, com.cloudstorage.model.Share.Permission.EDITOR);
         if (targetFolderId != null) {
             Folder targetFolder = folderRepository.findById(targetFolderId)
                     .orElseThrow(() -> new RuntimeException("Folder not found"));
@@ -207,6 +210,20 @@ public class FileService {
             file.setFolder(null);
         }
         return fileRepository.save(file);
+    }
+
+    private void checkPermission(UUID fileId, User user, com.cloudstorage.model.Share.Permission required) {
+        File file = fileRepository.findById(fileId).orElseThrow();
+        if (file.getUser().getId().equals(user.getId()))
+            return; // Owner has all permissions
+
+        com.cloudstorage.model.Share share = shareRepository.findByFileIdAndSharedWith(fileId, user)
+                .orElseThrow(() -> new RuntimeException("Access denied"));
+
+        if (required == com.cloudstorage.model.Share.Permission.EDITOR &&
+                share.getPermission() != com.cloudstorage.model.Share.Permission.EDITOR) {
+            throw new RuntimeException("Editor permission required for this action");
+        }
     }
 
     public long calculateUserStorage(User user) {

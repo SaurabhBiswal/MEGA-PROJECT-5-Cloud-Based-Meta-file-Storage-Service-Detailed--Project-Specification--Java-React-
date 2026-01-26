@@ -92,6 +92,8 @@ public class FileController {
                     .contentType(MediaType.parseMediaType(file.getFileType()))
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
                     .body(resource);
+        } catch (org.springframework.web.server.ResponseStatusException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Download error: " + e.getMessage());
         }
@@ -167,6 +169,24 @@ public class FileController {
         try {
             fileService.permanentDeleteFile(fileId, getCurrentUser());
             return ResponseEntity.ok("File deleted permanently");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{fileId}/rename")
+    public ResponseEntity<?> renameFile(@PathVariable UUID fileId, @RequestParam String newName) {
+        try {
+            return ResponseEntity.ok(fileService.renameFile(fileId, newName, getCurrentUser()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{fileId}/move")
+    public ResponseEntity<?> moveFile(@PathVariable UUID fileId, @RequestParam(required = false) UUID folderId) {
+        try {
+            return ResponseEntity.ok(fileService.moveFile(fileId, folderId, getCurrentUser()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

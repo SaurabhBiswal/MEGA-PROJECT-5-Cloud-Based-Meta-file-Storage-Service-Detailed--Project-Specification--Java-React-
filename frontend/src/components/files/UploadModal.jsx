@@ -55,10 +55,13 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
 
+    const abortControllerRef = useRef(null);
+
     const handleUpload = async () => {
         if (files.length === 0) return;
         setUploading(true);
         setProgress(0);
+        abortControllerRef.current = new AbortController();
 
         const totalFiles = files.length;
 
@@ -66,17 +69,24 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
         let anyError = false;
         for (let i = 0; i < totalFiles; i++) {
             const fileItem = files[i];
+            if (fileItem.status === 'success') continue;
+
             try {
                 // Update specific file status to uploading
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'uploading' } : f));
 
                 await fileService.uploadFile(fileItem.file, folderId, (percent) => {
                     setProgress(percent);
-                });
+                }, abortControllerRef.current.signal);
 
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'success' } : f));
                 anySuccess = true;
             } catch (error) {
+                if (error.name === 'CanceledError' || error.name === 'AbortError') {
+                    console.log("Upload canceled by user");
+                    setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'pending' } : f));
+                    break;
+                }
                 console.error("Upload failed for", fileItem.name, error);
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'error', error: error.message } : f));
                 anyError = true;
@@ -84,6 +94,7 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
         }
 
         setUploading(false);
+        abortControllerRef.current = null;
 
         // Show success only if everything went perfectly
         if (anySuccess && !anyError) {
@@ -94,8 +105,16 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
                 setProgress(0);
             }, 1000);
         } else if (anySuccess) {
-            // Partial success
-            onUploadSuccess(); // Still refresh to show what did work
+            onUploadSuccess();
+        }
+    };
+
+    const handleCancel = () => {
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+            setUploading(false);
+        } else {
+            onClose();
         }
     };
 
@@ -189,11 +208,10 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
                 {/* Footer */}
                 <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-3">
                     <button
-                        onClick={onClose}
+                        onClick={handleCancel}
                         className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-                        disabled={uploading}
                     >
-                        Cancel
+                        {uploading ? 'Cancel Upload' : 'Close'}
                     </button>
                     <button
                         onClick={handleUpload}

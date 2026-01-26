@@ -7,14 +7,16 @@ const fileService = {
         return response.data;
     },
 
-    uploadFile: async (file, folderId = null, onProgress = null) => {
+    uploadFile: async (file, folderId = null, onProgress = null, signal = null) => {
         const formData = new FormData();
         formData.append('file', file);
-        if (folderId) {
+        // Only append folderId if it's a valid non-null value to avoid Spring 400 conversion error
+        if (folderId && folderId !== 'null' && folderId !== 'undefined') {
             formData.append('folderId', folderId);
         }
 
         const response = await api.post('/files/upload', formData, {
+            signal, // AbortController signal
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

@@ -6,10 +6,6 @@ import com.cloudstorage.repository.UserRepository;
 import com.cloudstorage.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -228,6 +224,30 @@ public class FileController {
             return ResponseEntity.status(302).location(URI.create(signedUrl)).build();
         } catch (Exception e) {
             throw new RuntimeException("Error generating direct link: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/init-upload")
+    public ResponseEntity<?> initUpload(@RequestBody Map<String, String> request) {
+        try {
+            User user = getCurrentUser();
+            String fileName = request.get("fileName");
+            String contentType = request.get("fileType");
+            return ResponseEntity.ok(fileService.generatePresignedUploadUrl(fileName, contentType, user));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Init failed: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/complete-upload")
+    public ResponseEntity<?> completeUpload(@RequestBody Map<String, Object> metadata) {
+        try {
+            User user = getCurrentUser();
+            File savedFile = fileService.completeUpload(metadata, user);
+            return ResponseEntity.ok(new FileResponse(savedFile.getId(), savedFile.getFileName(),
+                    savedFile.getFileType(), savedFile.getFileSize(), "File metadata saved successfully!"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Completion failed: " + e.getMessage());
         }
     }
 }

@@ -8,23 +8,38 @@ const fileService = {
     },
 
     uploadFile: async (file, folderId = null, onProgress = null, signal = null) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        // Only append folderId if it's a valid non-null value to avoid Spring 400 conversion error
-        if (folderId && folderId !== 'null' && folderId !== 'undefined') {
-            formData.append('folderId', folderId);
-        }
+        try {
+            // Step 1: Get Presigned URL from Backend
+            const { uploadUrl, fileKey, fileName, fileType } = await fileService.initDirectUpload(file.name, file.type);
 
-        const response = await api.post('/files/upload', formData, {
-            signal, // AbortController signal
-            onUploadProgress: (progressEvent) => {
-                if (onProgress && progressEvent.total) {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    onProgress(percentCompleted);
+            // Step 2: Upload DIRECTLY to S3
+            // We use a clean axios call to avoid the 'Authorization' interceptor from 'api.js'
+            const axios = (await import('axios')).default;
+            await axios.put(uploadUrl, file, {
+                signal,
+                headers: { 'Content-Type': file.type },
+                onUploadProgress: (progressEvent) => {
+                    if (onProgress && progressEvent.total) {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        onProgress(percentCompleted);
+                    }
                 }
-            }
-        });
-        return response.data;
+            });
+
+            // Step 3: Notify Backend to save metadata
+            const metadata = {
+                fileName,
+                fileKey,
+                fileType,
+                fileSize: file.size,
+                folderId
+            };
+
+            return await fileService.completeDirectUpload(metadata);
+        } catch (error) {
+            console.error("Direct S3 Upload failed:", error);
+            throw error;
+        }
     },
 
     downloadFile: async (id) => {
@@ -92,6 +107,18 @@ const fileService = {
         const response = await api.put(`/files/${id}/move`, null, {
             params: { folderId }
         });
+        return response.data;
+    },
+
+    // Initialize Direct-to-S3 upload
+    initDirectUpload: async (fileName, fileType) => {
+        const response = await api.post('/files/init-upload', { fileName, fileType });
+        return response.data;
+    },
+
+    // Finalize Metadata after successful S3 upload
+    completeDirectUpload: async (metadata) => {
+        const response = await api.post('/files/complete-upload', metadata);
         return response.data;
     },
 

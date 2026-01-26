@@ -21,6 +21,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -293,7 +294,7 @@ public class FileService {
         try {
             String path = file.getFilePath();
             // In S3, the key is what we need. For our app, it's user-id/unique-filename
-            // Since we store the full URL, we extract the part after the bucket name
+            // Since we store the full URL, we extract the part after the last slash
             String key = file.getUser().getId() + "/" + path.substring(path.lastIndexOf("/") + 1);
 
             // Set expiration to 2 hours
@@ -312,6 +313,74 @@ public class FileService {
         } catch (Exception e) {
             log.error("Failed to generate S3 presigned URL: {}", e.getMessage());
             return file.getFilePath();
+        }
+    }
+
+    // Generate a Presigned URL for UPLOADING (Direct Browser-to-S3)
+    public Map<String, String> generatePresignedUploadUrl(String fileName, String contentType, User user) {
+        try {
+            String fileExtension = fileName.contains(".")
+                    ? fileName.substring(fileName.lastIndexOf("."))
+                    : "";
+            String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+            String key = user.getId() + "/" + uniqueFileName;
+
+            // Set expiration to 30 minutes for the upload window
+            Date expiration = new Date();
+            long expTimeMillis = expiration.getTime();
+            expTimeMillis += 1000 * 60 * 30; // 30 mins
+            expiration.setTime(expTimeMillis);
+
+            GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, key)
+                    .withMethod(HttpMethod.PUT)
+                    .withExpiration(expiration);
+
+            // Critical for CORS: S3 needs to know the content type we're pre-approving
+            request.setContentType(contentType);
+
+            URL url = s3Client.generatePresignedUrl(request);
+
+            return Map.of(
+                    "uploadUrl", url.toString(),
+                    "fileName", fileName,
+                    "fileKey", key,
+                    "fileType", contentType);
+        } catch (Exception e) {
+            log.error("Failed to generate S3 upload URL: {}", e.getMessage());
+            throw new RuntimeException("Could not initialize upload: " + e.getMessage());
+        }
+    }
+
+    // Save metadata after successful direct upload
+    public File completeUpload(Map<String, Object> metadata, User user) {
+        try {
+            String fileName = (String) metadata.get("fileName");
+            String fileKey = (String) metadata.get("fileKey");
+            String fileType = (String) metadata.get("fileType");
+            long fileSize = Long.parseLong(metadata.get("fileSize").toString());
+            UUID folderId = metadata.get("folderId") != null ? UUID.fromString(metadata.get("folderId").toString())
+                    : null;
+
+            String s3Url = s3Client.getUrl(bucketName, fileKey).toString();
+
+            Folder folder = null;
+            if (folderId != null) {
+                folder = folderRepository.findById(folderId).orElse(null);
+            }
+
+            File file = new File();
+            file.setFileName(fileName);
+            file.setFilePath(s3Url);
+            file.setFileType(fileType);
+            file.setFileSize(fileSize);
+            file.setUser(user);
+            file.setFolder(folder);
+            file.setLastOpenedAt(LocalDateTime.now());
+
+            return fileRepository.save(file);
+        } catch (Exception e) {
+            log.error("Failed to complete upload metadata: {}", e.getMessage());
+            throw new RuntimeException("Failed to finalize upload: " + e.getMessage());
         }
     }
 }

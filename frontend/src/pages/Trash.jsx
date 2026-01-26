@@ -13,10 +13,7 @@ const TrashPage = () => {
 
     const fetchTrashedFiles = async () => {
         try {
-            // TODO: Create backend endpoint for trashed files
-            // For now, filter from all files
-            const allFiles = await fileService.getMyFiles();
-            const trashed = allFiles.filter(f => f.isTrashed);
+            const trashed = await fileService.getTrashedFiles();
             setTrashedFiles(trashed);
         } catch (error) {
             console.error('Failed to load trash:', error);
@@ -27,8 +24,7 @@ const TrashPage = () => {
 
     const handleRestore = async (fileId) => {
         try {
-            // TODO: Create restore endpoint
-            console.log('Restore file:', fileId);
+            await fileService.restoreFile(fileId);
             await fetchTrashedFiles();
         } catch (error) {
             console.error('Failed to restore file:', error);
@@ -39,7 +35,7 @@ const TrashPage = () => {
         if (!confirm('Permanently delete this file? This cannot be undone.')) return;
 
         try {
-            await fileService.deleteFile(fileId);
+            await fileService.permanentDeleteFile(fileId);
             await fetchTrashedFiles();
         } catch (error) {
             console.error('Failed to delete file:', error);

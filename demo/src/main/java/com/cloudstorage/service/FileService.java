@@ -96,6 +96,15 @@ public class FileService {
 
             return fileRepository.save(file);
 
+        } catch (org.springframework.web.client.HttpClientErrorException e) {
+            String responseBody = e.getResponseBodyAsString();
+            log.error("Supabase Upload Error: {} - Body: {}", e.getStatusCode(), responseBody);
+
+            if (responseBody.contains("exceeded the maximum allowed size")) {
+                throw new RuntimeException(
+                        "Supabase Storage Limit Reached! Go to Supabase Dashboard > Storage > Settings and increase 'Upload file size limit' to 5GB.");
+            }
+            throw new RuntimeException("Cloud upload failed: " + responseBody);
         } catch (Exception e) {
             log.error("Cloud upload error: {}", e.getMessage());
             throw new RuntimeException("Could not upload to cloud: " + e.getMessage());

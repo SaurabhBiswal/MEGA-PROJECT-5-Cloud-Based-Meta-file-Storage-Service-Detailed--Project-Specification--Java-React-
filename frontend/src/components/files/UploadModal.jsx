@@ -3,11 +3,12 @@ import { Upload, X, File } from 'lucide-react';
 import fileService from '../../services/fileService';
 
 const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
+    const fileInputRef = useRef(null);
+    const abortControllerRef = useRef(null);
     const [dragActive, setDragActive] = useState(false);
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
-    const fileInputRef = useRef(null);
 
     if (!isOpen) return null;
 
@@ -54,8 +55,6 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
         const i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
-
-    const abortControllerRef = useRef(null);
 
     const handleUpload = async () => {
         if (files.length === 0) return;

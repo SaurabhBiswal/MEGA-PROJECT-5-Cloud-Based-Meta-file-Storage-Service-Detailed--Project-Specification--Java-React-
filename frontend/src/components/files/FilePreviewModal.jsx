@@ -37,17 +37,10 @@ const FilePreviewModal = ({ isOpen, onClose, file, onShare, onStar }) => {
 
     const streamUrl = fileService.getDownloadUrl(file.id);
 
-    const handleDownload = async () => {
+    const handleDownload = () => {
         try {
-            const response = await fileService.downloadFile(file.id);
-            const blob = response.data;
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', file.fileName);
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
+            const url = fileService.getDownloadUrl(file.id);
+            window.open(url, '_blank');
         } catch (err) {
             console.error("Download failed", err);
         }

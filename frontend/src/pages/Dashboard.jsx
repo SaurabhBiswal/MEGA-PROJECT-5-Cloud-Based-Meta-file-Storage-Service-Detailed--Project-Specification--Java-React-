@@ -81,6 +81,29 @@ const Dashboard = () => {
         console.log('Menu for file:', file.id);
     };
 
+    const handleFolderRename = async (id, newName) => {
+        try {
+            await folderService.renameFolder(id, newName);
+            showToast("Directory renamed successfully");
+            fetchData();
+        } catch (error) {
+            console.error("Folder rename failed:", error);
+            showToast("Could not rename directory", 'error');
+        }
+    };
+
+    const handleFolderDelete = async (id) => {
+        if (!window.confirm("Are you sure you want to move this folder to trash?")) return;
+        try {
+            await folderService.deleteFolder(id);
+            showToast("Directory moved to trash");
+            fetchData();
+        } catch (error) {
+            console.error("Folder delete failed:", error);
+            showToast("Could not delete directory", 'error');
+        }
+    };
+
     const handleDeleteFile = async (file) => {
         if (window.confirm(`Move "${file.fileName}" to trash?`)) {
             try {
@@ -185,6 +208,8 @@ const Dashboard = () => {
                                         key={folder.id}
                                         folder={folder}
                                         onClick={() => handleFolderClick(folder)}
+                                        onRename={(f) => setRenamingFile({ ...f, type: 'folder' })}
+                                        onDelete={(f) => handleFolderDelete(f.id)}
                                     />
                                 ))}
                             </div>
@@ -276,6 +301,10 @@ const Dashboard = () => {
                 isOpen={!!renamingFile}
                 file={renamingFile}
                 onClose={() => setRenamingFile(null)}
+                onRename={renamingFile?.type === 'folder'
+                    ? (id, name) => folderService.renameFolder(id, name)
+                    : (id, name) => fileService.renameFile(id, name)
+                }
                 onSuccess={() => { fetchData(); showToast('Item renamed'); }}
             />
         </div>

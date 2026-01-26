@@ -9,7 +9,7 @@ const RenameModal = ({ isOpen, onClose, file, onSuccess }) => {
 
     useEffect(() => {
         if (isOpen && file) {
-            setNewName(file.fileName);
+            setNewName(file.fileName || file.name); // Handle both file and folder objects
             setError('');
         }
     }, [isOpen, file]);
@@ -25,11 +25,15 @@ const RenameModal = ({ isOpen, onClose, file, onSuccess }) => {
         setError('');
 
         try {
-            await fileService.renameFile(file.id, newName);
+            if (onRename) {
+                await onRename(file.id, newName);
+            } else {
+                await fileService.renameFile(file.id, newName); // Fallback
+            }
             onSuccess();
             onClose();
         } catch (err) {
-            setError(err.response?.data || 'Failed to rename file');
+            setError(err.response?.data || 'Failed to rename item');
         } finally {
             setLoading(false);
         }

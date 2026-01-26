@@ -99,7 +99,7 @@ const Shared = () => {
                     {shares.map((share) => (
                         <div key={share.id} className="relative">
                             <FileCard
-                                file={share.file}
+                                file={{ ...share.file, isStarred: share.isStarred }}
                                 onClick={() => setPreviewFile(share.file)}
                                 onStar={(f) => handleStar(f.id)}
                                 onDelete={(f) => handleDelete(f.id)}

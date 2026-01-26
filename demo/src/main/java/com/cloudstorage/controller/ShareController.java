@@ -20,7 +20,6 @@ public class ShareController {
 
     private final ShareService shareService;
     private final UserRepository userRepository;
-    private final com.cloudstorage.security.JwtUtils jwtUtils;
 
     private User getCurrentUser() {
         try {

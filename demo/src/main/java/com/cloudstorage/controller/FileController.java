@@ -5,6 +5,7 @@ import com.cloudstorage.model.User;
 import com.cloudstorage.repository.UserRepository;
 import com.cloudstorage.service.FileService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/files")
 @RequiredArgsConstructor
+@Slf4j
 public class FileController {
 
     private final FileService fileService;

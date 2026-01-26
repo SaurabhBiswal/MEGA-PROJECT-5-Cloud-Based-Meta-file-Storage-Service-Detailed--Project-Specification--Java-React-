@@ -59,7 +59,7 @@ const Navbar = ({ onSearch }) => {
     }, [isUserMenuOpen]);
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         navigate('/login');
     };
 

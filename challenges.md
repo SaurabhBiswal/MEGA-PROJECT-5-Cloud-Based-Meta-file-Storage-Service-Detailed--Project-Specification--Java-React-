@@ -1,43 +1,43 @@
-# Project Challenges & Technical Solutions
+# 🛠️ Technical Challenges & Solutions
 
-This document outlines the major technical hurdles encountered during the development of CloudBox and the solutions implemented to resolve them.
+Developing and deploying a full-stack Cloud Storage service comes with significant hurdles, especially on free-tier cloud platforms. Here is a summary of the battles we fought and won.
 
-## 1. The 4GB Git Repository Disaster
-**Problem:**
-During the initial development, the `demo/uploads` directory (containing test video files) was accidentally committed to the git repository. This bloated the repository size to **4.5 GB**, causing GitHub to reject pushes with `RPC failed; curl 55 Send failure: Connection was reset`.
+---
 
-**Diagnosis:**
-Standard `git push` commands failed because GitHub has a hard limit of 100MB per file and a soft limit on total push size. The `git status` command showed specific large `.mp4` files (e.g., 1.7GB) in the index.
+## 1. The "Vanishing Files" Battle (Ephemeral Storage)
+**Challenge:** Initially, files were stored on the Railway server's local disk. Every time we pushed a code update, Railway would redeploy and **wipe the entire disk**, deleting all user uploads.
+**Solution:** Integrated **Supabase Storage (Cloud)**. Files are now streamed directly to the cloud, making them persistent and safe from server redeployments.
 
-**Solution (The "Nuclear" Reset):**
-1.  Executed `git rm -r --cached demo/uploads` to remove files from the index.
-2.  Updated `.gitignore` to explicitly exclude `*.mp4`, `*.mkv`, and `demo/uploads/`.
-3.  Performed a `git commit --amend` to rewrite the history and remove the large blobs from the commit object.
-4.  Forced a push `git push -u origin main --force` to overwrite the corrupted remote history.
+## 2. The Great SMTP Blockade (Email)
+**Challenge:** Cloud platforms like Railway block outbound SMTP connections (Port 587/465) on free tiers to prevent spam. This made Gmail SMTP impossible to use.
+**Solution:** Switched to **SendGrid API** (HTTP-based). By using an API instead of SMTP, we bypassed firewall restrictions.
+**Sub-Challenge:** Resend (another service) required domain verification for external emails. 
+**Final Fix:** Used SendGrid with **Single Sender Verification** to allow sending from a verified personal email.
 
-## 2. SMTP "Silent Failure" & Registration Rollback
-**Problem:**
-User registration was failing silently. The `AuthService` attempted to send a "Welcome Email" via Gmail SMTP as part of the registration transaction. When Gmail rejected the credentials (or connection timed out), the entire transaction rolled back, preventing the user created from being saved to the database.
+## 3. The "CORS" Nightmare
+**Challenge:** Connecting a Vercel Frontend to a Railway Backend triggered security blocks. "No Access-Control-Allow-Origin header" errors were common.
+**Solution:** Implemented a robust `CorsConfigurationSource` in Spring Security, specifically whitelisting all variations of the Vercel deployment URLs and allowing credentials/headers.
 
-**Solution:**
-Implemented a Non-Blocking Email Strategy.
-- Wrapped the `emailService.sendEmail()` call in a `try-catch` block within `AuthService`.
-- Logged the error but allowed the transaction to proceed.
-- Result: Users can now register and login even if the email service is temporarily down.
+## 4. Railway Memory Crashes (OOM)
+**Challenge:** Spring Boot is memory-intensive. Railway's 512MB limit caused the app to crash with "Out of Memory" (OOM) errors during startup.
+**Solution:** Configured `JAVA_TOOL_OPTIONS` with `-Xmx300m -Xms256m` to limit the Java Heap size, ensuring the app stays within Railway's limits.
 
-## 3. Video Streaming & "Content-Disposition"
-**Problem:**
-Shared video links were forcing a "Download" action instead of playing in the browser. This was due to the `Content-Disposition` header defaulting to `attachment`.
+## 5. Vercel 404 on Refresh (SPA Routing)
+**Challenge:** Refreshing any page (like `/dashboard`) on Vercel resulted in a "404 Not Found" because the server tried to find a physical file instead of letting React handle the route.
+**Solution:** Added `vercel.json` with a **rewrite rule** that redirects all traffic to `index.html`, allowing React Router to take control.
 
-**Solution:**
-- Updated `FileController.java` to detect the file's MIME type.
-- Changed the header to `Content-Disposition: inline`.
-- This allows browsers to render MP4 videos and images natively within the viewer.
+## 6. Localhost vs. Production Links
+**Challenge:** Emails sent from the server were hardcoded with `localhost:5173` links, making them useless for the recipient.
+**Solution:** Created a configurable `FRONTEND_URL` environment variable. The backend now dynamically generates links pointing to the Vercel production URL.
 
-## 4. GitHub Secret Scanning Blocks
-**Problem:**
-GitHub's "Push Protection" blocked the deployment because `application.properties` contained real Google OAuth Client IDs and Secrets.
+## 7. Large File Upload Strategy
+**Challenge:** Uploading files near 1GB was extremely slow and often timed out.
+**Solution:** Optimized the backend with `Multipart` size limits (2GB) and explained the "Proxying" impact (Browser -> Server -> Cloud). For production, Direct-to-Cloud uploads are the next step.
 
-**Solution:**
-- Scrubbed secrets from `application.properties` using `PLACEHOLDER_...` values.
-- Used `git commit --amend` to remove the secrets from the commit history to satisfy the security scanner.
+---
+
+### **Lessons Learned**
+- **Persistence is Key:** Local server storage is for temporary data only.
+- **APIs > SMTP:** For cloud deployments, always use HTTP Mail APIs over SMTP.
+- **Heap Management:** In restricted RAM environments, manual JVM tuning is mandatory.
+- **Public Links:** Unifying sharing via public tokens makes for a much smoother user experience.

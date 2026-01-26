@@ -9,30 +9,30 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // Check if user is logged in (e.g. check token)
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         if (token) {
             // Ideally verify token with backend here
             // For now, just assume logged in or decode token if needed
-            // setUser({ name: 'User' }); 
+            setUser({ email: 'Logged User' });
         }
         setLoading(false);
     }, []);
 
     const login = async (email, password) => {
         const response = await api.post('/auth/login', { email, password });
-        localStorage.setItem('token', response.data.token);
+        sessionStorage.setItem('token', response.data.token);
         setUser(response.data.user || { email });
         return response.data;
     };
 
     const loginWithToken = (token) => {
-        localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
         // We could decode JWT here, but for now we just set a generic user to trigger auth state
         setUser({ email: 'Google User' });
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         setUser(null);
     };
 

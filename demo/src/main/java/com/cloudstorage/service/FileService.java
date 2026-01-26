@@ -61,9 +61,11 @@ public class FileService {
             headers.set("Authorization", "Bearer " + supabaseKey);
             headers.set("apikey", supabaseKey);
 
-            HttpEntity<byte[]> request = new HttpEntity<>(multipartFile.getBytes(), headers);
+            // Use getResource() for streaming instead of getBytes() to prevent OOM
+            HttpEntity<org.springframework.core.io.Resource> request = new HttpEntity<>(multipartFile.getResource(),
+                    headers);
 
-            log.info("Uploading file to Supabase: {}", url);
+            log.info("Streaming file to Supabase: {} (Size: {} bytes)", url, multipartFile.getSize());
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
 
             if (response.getStatusCode() != HttpStatus.OK) {

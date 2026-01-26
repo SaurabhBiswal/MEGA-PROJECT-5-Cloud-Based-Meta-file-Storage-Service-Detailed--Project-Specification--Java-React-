@@ -158,10 +158,21 @@ public class FileService {
         return fileRepository.findByUserAndIsStarredTrueAndIsTrashedFalse(user);
     }
 
-    public File toggleStar(UUID fileId, User user) {
-        File file = getFile(fileId, user);
-        file.setIsStarred(file.getIsStarred() == null ? true : !file.getIsStarred());
-        return fileRepository.save(file);
+    public Object toggleStar(UUID fileId, User user) {
+        File file = fileRepository.findById(fileId).orElseThrow();
+
+        // 1. If Owner, toggle File star
+        if (file.getUser().getId().toString().equals(user.getId().toString())) {
+            file.setIsStarred(file.getIsStarred() == null ? true : !file.getIsStarred());
+            return fileRepository.save(file);
+        }
+
+        // 2. If Shared Recipient, toggle Share star
+        com.cloudstorage.model.Share share = shareRepository.findByFileIdAndSharedWith(fileId, user)
+                .orElseThrow(() -> new RuntimeException("Access denied: You don't have permission to star this file."));
+
+        share.setIsStarred(share.getIsStarred() == null ? true : !share.getIsStarred());
+        return shareRepository.save(share);
     }
 
     public void permanentDeleteFile(UUID fileId, User user) {

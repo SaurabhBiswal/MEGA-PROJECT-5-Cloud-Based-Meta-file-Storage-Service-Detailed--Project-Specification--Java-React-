@@ -44,6 +44,9 @@ public class Share {
     @Column(name = "last_opened_at")
     private LocalDateTime lastOpenedAt;
 
+    @Column(name = "is_starred")
+    private Boolean isStarred = false;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

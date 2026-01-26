@@ -14,7 +14,7 @@ import Layout from './components/layout/Layout';
 
 // Temporary protected route wrapper
 const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const isAuthenticated = token && token !== 'null' && token !== 'undefined';
   return isAuthenticated ? children : <Navigate to="/login" />;
 };

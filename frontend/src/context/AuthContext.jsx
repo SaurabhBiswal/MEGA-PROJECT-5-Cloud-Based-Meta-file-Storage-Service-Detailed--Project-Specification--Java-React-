@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // Check if user is logged in
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         if (token) {
             setUser({ email: 'Logged User' });
         }
@@ -18,19 +18,19 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         const response = await api.post('/auth/login', { email, password });
-        localStorage.setItem('token', response.data.token);
+        sessionStorage.setItem('token', response.data.token);
         setUser(response.data.user || { email });
         return response.data;
     };
 
     const loginWithToken = (token) => {
-        localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
         // We could decode JWT here, but for now we just set a generic user to trigger auth state
         setUser({ email: 'Google User' });
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         setUser(null);
     };
 

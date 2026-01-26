@@ -102,9 +102,11 @@ const fileService = {
     },
 
     getDownloadUrl: (id) => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            console.error("⛔ [fileService] NO TOKEN FOUND in localStorage. Download will fail.");
+        const token = sessionStorage.getItem('token');
+        if (!token || token === 'null') {
+            alert("Session lost. Please re-login.");
+            window.location.href = '/login';
+            return '';
         }
         const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
         return `${baseUrl}/files/${id}/download?token=${token}`;

@@ -327,9 +327,23 @@ public class FileService {
 
     public String generateSignedUrl(File file) {
         try {
-            // Extract path from public URL
+            // Extract path from public URL robustly
             String path = file.getFilePath();
-            String supabasePath = path.substring(path.indexOf(bucketName + "/") + bucketName.length() + 1);
+            String supabasePath;
+
+            // Handle different URL formats
+            if (path.contains("/object/public/" + bucketName + "/")) {
+                supabasePath = path.substring(path.indexOf("/object/public/" + bucketName + "/")
+                        + ("/object/public/" + bucketName + "/").length());
+            } else if (path.contains("/object/" + bucketName + "/")) {
+                supabasePath = path.substring(
+                        path.indexOf("/object/" + bucketName + "/") + ("/object/" + bucketName + "/").length());
+            } else if (path.contains(bucketName + "/")) {
+                supabasePath = path.substring(path.indexOf(bucketName + "/") + (bucketName + "/").length());
+            } else {
+                // Fallback: assume path IS the relative path if no bucket found
+                supabasePath = path;
+            }
 
             String url = supabaseUrl + "/storage/v1/object/sign/" + bucketName + "/" + supabasePath;
 
@@ -351,7 +365,7 @@ public class FileService {
             }
             throw new RuntimeException("Supabase sign failed: " + response.getBody());
         } catch (Exception e) {
-            log.error("Failed to generate signed URL: {}", e.getMessage());
+            log.error("Failed to generate signed URL for file {}: {}", file.getFileName(), e.getMessage());
             // Fallback to current stored path if signing fails
             return file.getFilePath();
         }

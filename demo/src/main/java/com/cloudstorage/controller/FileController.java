@@ -33,9 +33,26 @@ public class FileController {
     private final RestTemplate restTemplate;
 
     private User getCurrentUser(String token) {
-        String email = (token != null) ? jwtUtils.extractUsername(token)
-                : SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        try {
+            String email = (token != null && !token.equals("null") && !token.isEmpty())
+                    ? jwtUtils.extractUsername(token)
+                    : SecurityContextHolder.getContext().getAuthentication().getName();
+
+            if (email == null || email.equals("anonymousUser")) {
+                throw new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.UNAUTHORIZED,
+                        "User not authenticated");
+            }
+
+            return userRepository.findByEmail(email).orElseThrow(
+                    () -> new org.springframework.web.server.ResponseStatusException(
+                            org.springframework.http.HttpStatus.UNAUTHORIZED,
+                            "User not found"));
+        } catch (Exception e) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.UNAUTHORIZED,
+                    "Invalid authentication token");
+        }
     }
 
     private User getCurrentUser() {

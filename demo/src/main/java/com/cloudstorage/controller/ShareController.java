@@ -6,6 +6,7 @@ import com.cloudstorage.repository.UserRepository;
 import com.cloudstorage.service.ShareService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/shares")
 @RequiredArgsConstructor
+@Slf4j
 public class ShareController {
 
     private final ShareService shareService;

@@ -96,6 +96,9 @@ public class FileController {
             User user = getCurrentUser(token);
             File file = fileService.getFile(fileId, user);
 
+            // Mark as recently opened
+            fileService.reportFileOpen(fileId, user);
+
             // Redirect to a secure signed URL for high-performance streaming
             String signedUrl = fileService.generateSignedUrl(file);
             return ResponseEntity.status(302).location(URI.create(signedUrl)).build();

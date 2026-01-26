@@ -27,6 +27,13 @@ public class EmailService {
 
     @Async
     public void sendEmail(String to, String subject, String body, String fromName, String replyToEmail) {
+        if (sendGridApiKey == null || sendGridApiKey.equals("placeholder") || sendGridApiKey.contains("${")) {
+            log.error(
+                    "❌ CRITICAL: SendGrid API Key is MISSING or INVALID. Cannot send email to {}. Please set SENDGRID_API_KEY environment variable.",
+                    to);
+            return;
+        }
+
         log.info("Preparing to send email to: {} from: {} via SendGrid", to, fromName);
 
         try {

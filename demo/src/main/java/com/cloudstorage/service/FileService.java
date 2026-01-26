@@ -360,7 +360,12 @@ public class FileService {
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 String signedPath = (String) response.getBody().get("signedURL");
-                // Supabase typically returns the full path starting from /storage/v1/
+
+                // Ensure the path starts with /storage/v1
+                if (signedPath.startsWith("/object/sign")) {
+                    signedPath = "/storage/v1" + signedPath;
+                }
+
                 return supabaseUrl + signedPath;
             }
             throw new RuntimeException("Supabase sign failed: " + response.getBody());

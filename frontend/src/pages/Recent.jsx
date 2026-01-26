@@ -26,6 +26,26 @@ const Recent = () => {
         }
     };
 
+    const handleDelete = async (file) => {
+        if (window.confirm(`Move "${file.fileName}" to trash?`)) {
+            try {
+                await fileService.deleteFile(file.id);
+                fetchRecentFiles();
+            } catch (error) {
+                console.error('Failed to delete:', error);
+            }
+        }
+    };
+
+    const handleStar = async (file) => {
+        try {
+            await fileService.starFile(file.id);
+            fetchRecentFiles();
+        } catch (error) {
+            console.error('Failed to star:', error);
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center h-full">
@@ -55,9 +75,15 @@ const Recent = () => {
                         <FileCard
                             key={file.id}
                             file={file}
-                            onMenuClick={() => { }}
                             onClick={() => setPreviewFile(file)}
                             onShareClick={() => setShareFile(file)}
+                            onDelete={() => handleDelete(file)}
+                            onStar={() => handleStar(file)}
+                            onDownload={() => window.open(fileService.getDownloadUrl(file.id), '_blank')}
+                            onRename={() => {
+                                const newName = prompt("New name:", file.fileName);
+                                if (newName) fileService.renameFile(file.id, newName).then(() => fetchRecentFiles());
+                            }}
                         />
                     ))}
                 </div>

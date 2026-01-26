@@ -52,6 +52,22 @@ const Shared = () => {
         }
     };
 
+    const handleRename = async (id) => {
+        const newName = prompt("Enter new filename:");
+        if (!newName) return;
+        try {
+            await fileService.renameFile(id, newName);
+            fetchSharedFiles();
+        } catch (error) {
+            console.error('Failed to rename:', error);
+        }
+    };
+
+    const handleMove = (file) => {
+        // For MVP, move logic is more complex for shared files, but we can prompt
+        alert("Moving shared files to personal folders is a Phase 2 feature.");
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center h-full">
@@ -85,6 +101,9 @@ const Shared = () => {
                                 onStar={() => handleStar(share.file.id)}
                                 onDelete={() => handleDelete(share.file.id)}
                                 onDownload={() => handleDownload(share.file)}
+                                onRename={() => handleRename(share.file.id)}
+                                onShareClick={() => setShareFile(share.file)}
+                                onMove={() => handleMove(share.file)}
                             />
                             <div className="absolute top-2 right-2 bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">
                                 {share.permission === 'VIEWER' ? 'View only' : 'Can edit'}
@@ -98,6 +117,12 @@ const Shared = () => {
                 isOpen={!!previewFile}
                 file={previewFile}
                 onClose={() => setPreviewFile(null)}
+            />
+
+            <ShareModal
+                isOpen={!!shareFile}
+                file={shareFile}
+                onClose={() => setShareFile(null)}
             />
         </div>
     );

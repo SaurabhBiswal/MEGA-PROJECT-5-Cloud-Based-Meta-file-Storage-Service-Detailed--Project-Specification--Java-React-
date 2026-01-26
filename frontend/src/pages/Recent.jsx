@@ -4,12 +4,14 @@ import fileService from '../services/fileService';
 import FileCard from '../components/files/FileCard';
 import FilePreviewModal from '../components/files/FilePreviewModal';
 import ShareModal from '../components/files/ShareModal';
+import RenameModal from '../components/files/RenameModal';
 
 const Recent = () => {
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [previewFile, setPreviewFile] = useState(null);
     const [shareFile, setShareFile] = useState(null);
+    const [renamingFile, setRenamingFile] = useState(null);
 
     useEffect(() => {
         fetchRecentFiles();
@@ -99,6 +101,13 @@ const Recent = () => {
                 isOpen={!!shareFile}
                 file={shareFile}
                 onClose={() => setShareFile(null)}
+            />
+
+            <RenameModal
+                isOpen={!!renamingFile}
+                file={renamingFile}
+                onClose={() => setRenamingFile(null)}
+                onSuccess={fetchRecentFiles}
             />
         </div>
     );

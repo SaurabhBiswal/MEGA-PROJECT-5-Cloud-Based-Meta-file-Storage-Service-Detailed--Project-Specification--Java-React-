@@ -41,9 +41,13 @@ public class ShareService {
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new RuntimeException("File not found"));
 
+        log.info("PERMISSION CHECK: Share requested by user {} (ID: {}) for file owner: {} (ID: {})",
+                sharedBy.getEmail(), sharedBy.getId(), file.getUser().getEmail(), file.getUser().getId());
+
         // Check permission (only owner can share for now)
         if (!file.getUser().getId().toString().equals(sharedBy.getId().toString())) {
-            throw new RuntimeException("You don't have permission to share this file");
+            throw new RuntimeException("You don't have permission to share this file. Required Owner: "
+                    + file.getUser().getEmail() + ", Requested by: " + sharedBy.getEmail());
         }
 
         // ALWAYS ensure public link exists for direct access via email (Unification)
@@ -133,9 +137,12 @@ public class ShareService {
         File file = fileRepository.findById(fileId)
                 .orElseThrow(() -> new RuntimeException("File not found"));
 
+        log.info("PERMISSION CHECK: Get shares requested by user {} (ID: {}) for file owner ID: {}",
+                user.getEmail(), user.getId(), file.getUser().getId());
+
         // Check if user owns the file
         if (!file.getUser().getId().toString().equals(user.getId().toString())) {
-            throw new RuntimeException("You don't have permission to view shares for this file");
+            throw new RuntimeException("Access denied: You are not the owner of this file.");
         }
 
         return shareRepository.findByFileId(fileId);

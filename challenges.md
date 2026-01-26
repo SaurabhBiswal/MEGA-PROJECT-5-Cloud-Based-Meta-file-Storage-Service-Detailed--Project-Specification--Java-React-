@@ -31,8 +31,15 @@ Developing and deploying a full-stack Cloud Storage service comes with significa
 **Solution:** Created a configurable `FRONTEND_URL` environment variable. The backend now dynamically generates links pointing to the Vercel production URL.
 
 ## 7. Large File Upload Strategy
-**Challenge:** Uploading files near 1GB was extremely slow and often timed out.
-**Solution:** Optimized the backend with `Multipart` size limits (2GB) and explained the "Proxying" impact (Browser -> Server -> Cloud). For production, Direct-to-Cloud uploads are the next step.
+**Challenge:** Uploading files near 1GB was extremely slow and often timed out. Additionally, files over 400MB caused "Out of Memory" (OOM) crashes on Railway's 512MB RAM tier because the backend loaded the whole file into memory.
+**Solution:** 
+- Optimized the backend with `Multipart` size limits (2GB).
+- **Major Fix:** Refactored the backend to use **Streaming-based uploads** (`MultipartFile.getResource()`) directly to Supabase, bypassing RAM limits.
+- **UX Fix:** Implemented **Byte-level Progress Tracking** in the frontend so users can see real-time MB transfer instead of a hanging 0%.
+
+## 8. Cross-Tab Session Conflict (Privacy)
+**Challenge:** Using `localStorage` caused the same user session to be shared across all browser tabs. This made it impossible to test multiple accounts in the same browser and felt like a data leak.
+**Solution:** Switched to **`sessionStorage`**. Each browser tab now acts as a completely independent sandbox. Opening a new tab requires a separate login, matching the isolation expected from professional apps like Google Drive.
 
 ---
 

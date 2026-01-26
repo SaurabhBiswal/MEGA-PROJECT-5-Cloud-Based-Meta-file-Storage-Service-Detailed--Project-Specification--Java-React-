@@ -251,30 +251,34 @@ public class FileService {
                 .orElseThrow(() -> new RuntimeException("Invalid link"));
     }
 
-    public ResponseEntity<org.springframework.core.io.Resource> downloadFileProxy(File file) {
+    public String generateSignedUrl(File file) {
         try {
-            // Convert public URL to authenticated download URL
-            String authenticatedUrl = file.getFilePath().replace("/public/", "/authenticated/");
+            // Extract path from public URL
+            String path = file.getFilePath();
+            String supabasePath = path.substring(path.indexOf(bucketName + "/") + bucketName.length() + 1);
+
+            String url = supabaseUrl + "/storage/v1/object/sign/" + bucketName + "/" + supabasePath;
 
             HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", "Bearer " + supabaseKey);
             headers.set("apikey", supabaseKey);
 
-            HttpEntity<Void> request = new HttpEntity<>(headers);
+            // Generate a 2-hour signed URL (7200 seconds)
+            Map<String, Object> body = Map.of("expiresIn", 7200);
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
 
-            ResponseEntity<org.springframework.core.io.Resource> response = restTemplate.exchange(
-                    authenticatedUrl,
-                    HttpMethod.GET,
-                    request,
-                    org.springframework.core.io.Resource.class);
+            ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, request, Map.class);
 
-            return ResponseEntity.status(response.getStatusCode())
-                    .contentType(MediaType.parseMediaType(file.getFileType()))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-                    .body(response.getBody());
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                String signedPath = (String) response.getBody().get("signedURL");
+                return supabaseUrl + "/storage/v1/object/sign/" + bucketName + "/" + signedPath;
+            }
+            throw new RuntimeException("Supabase sign failed: " + response.getBody());
         } catch (Exception e) {
-            log.error("Supabase proxy download failed: {}", e.getMessage());
-            throw new RuntimeException("Failed to fetch file from cloud: " + e.getMessage());
+            log.error("Failed to generate signed URL: {}", e.getMessage());
+            // Fallback to current stored path if signing fails
+            return file.getFilePath();
         }
     }
 }

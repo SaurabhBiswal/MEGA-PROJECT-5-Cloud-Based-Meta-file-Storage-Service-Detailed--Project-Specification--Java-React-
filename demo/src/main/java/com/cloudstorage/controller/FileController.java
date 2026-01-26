@@ -96,8 +96,9 @@ public class FileController {
             User user = getCurrentUser(token);
             File file = fileService.getFile(fileId, user);
 
-            // Proxy stream from Supabase to client with authentication
-            return fileService.downloadFileProxy(file);
+            // Redirect to a secure signed URL for high-performance streaming
+            String signedUrl = fileService.generateSignedUrl(file);
+            return ResponseEntity.status(302).location(URI.create(signedUrl)).build();
         } catch (org.springframework.web.server.ResponseStatusException e) {
             throw e;
         } catch (Exception e) {
@@ -219,17 +220,13 @@ public class FileController {
     }
 
     @GetMapping("/public/download/{token}")
-    public ResponseEntity<Resource> getPublicFileDownload(@PathVariable String token) {
+    public ResponseEntity<?> getPublicFileDownload(@PathVariable String token) {
         try {
             File file = fileService.getFileByPublicToken(token);
-            Resource resource = new UrlResource(URI.create(file.getFilePath()));
-
-            return ResponseEntity.ok()
-                    .contentType(MediaType.parseMediaType(file.getFileType()))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getFileName() + "\"")
-                    .body(resource);
+            String signedUrl = fileService.generateSignedUrl(file);
+            return ResponseEntity.status(302).location(URI.create(signedUrl)).build();
         } catch (Exception e) {
-            throw new RuntimeException("Error: " + e.getMessage());
+            throw new RuntimeException("Error generating direct link: " + e.getMessage());
         }
     }
 }

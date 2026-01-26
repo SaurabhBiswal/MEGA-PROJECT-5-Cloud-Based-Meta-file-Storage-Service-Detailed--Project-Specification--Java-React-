@@ -95,4 +95,4 @@ For a detailed deep-dive into the technical battles fought during development, c
 ---
 
 ## 📄 License
-This project is for educational purposes. Feel free to use and modify!
+This project is made by **SAURABH BISWAL** for educational purposes. Feel free to use and add more features to it!

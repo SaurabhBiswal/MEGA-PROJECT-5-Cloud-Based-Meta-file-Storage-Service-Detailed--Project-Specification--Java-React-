@@ -5,7 +5,7 @@
 ---
 
 ## 🚀 Live Links
-- **Frontend (Vercel):** [mega-project-5-cloud-based-meta-fil-one.vercel.app](https://mega-project-5-cloud-based-meta-fil-one.vercel.app)
+- **Frontend (Vercel):** [mega-project-5-cloud-based-meta-fil.vercel.app](https://mega-project-5-cloud-based-meta-fil.vercel.app)
 - **Backend (Railway):** [melodious-curiosity-production.up.railway.app](https://melodious-curiosity-production.up.railway.app)
 
 ---
@@ -18,7 +18,7 @@
 - **Role-Based Access:** Private, Public, and Restricted file sharing permissions.
 
 ### 📁 File Management
-- **Cloud Persistence:** Powered by **Supabase Storage**. Files are safe from server redeployments.
+- **Cloud Persistence:** Powered by **AWS S3**. Files are safe from server redeployments and handle large volumes effortlessly.
 - **Streaming:** High-performance video and image preview/streaming directly from cloud buckets.
 - **Trash & Stars:** Built-in trash management (restore/permanent delete) and starred items for quick access.
 - **Folder Structure:** Organize your files with nested folders.
@@ -39,7 +39,7 @@
 - **Frontend:** React.js, Tailwind CSS, Vite
 - **Backend:** Java, Spring Boot, Spring Security (JWT)
 - **Database:** Supabase (PostgreSQL)
-- **Cloud Storage:** Supabase Storage (S3-compatible)
+- **Cloud Storage:** AWS S3 (Scalable storage for large files)
 - **Deployment:** Vercel (Frontend), Railway (Backend)
 - **Email Service:** SendGrid API
 - **Version Control:** Git & GitHub
@@ -56,8 +56,10 @@ To run this project in production, the following variables must be set on your h
 | `SPRING_DATASOURCE_URL` | Supabase PostgreSQL Connection String |
 | `SPRING_DATASOURCE_USERNAME` | Supabase DB Username |
 | `SPRING_DATASOURCE_PASSWORD` | Supabase DB Password |
-| `SUPABASE_URL` | Your Supabase Project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase Service Role Key |
+| `AWS_ACCESS_KEY` | Your AWS IAM Access Key |
+| `AWS_SECRET_KEY` | Your AWS IAM Secret Key |
+| `AWS_REGION` | Your S3 Bucket Region (e.g., ap-south-1) |
+| `AWS_S3_BUCKET` | Your S3 Bucket Name |
 | `SENDGRID_API_KEY` | Your SendGrid API Key (SG...) |
 | `FRONTEND_URL` | Your Vercel domain |
 | `JAVA_TOOL_OPTIONS` | `-Xmx300m -Xms256m` (Memory management) |

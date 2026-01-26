@@ -7,29 +7,23 @@ const fileService = {
         return response.data;
     },
 
-    uploadFile: async (file, folderId = null) => {
+    uploadFile: async (file, folderId = null, onProgress = null) => {
         const formData = new FormData();
         formData.append('file', file);
         if (folderId) {
             formData.append('folderId', folderId);
         }
 
-        // Note: Assuming backend handles multipart/form-data directly
-        // Or if using presigned URLs, this would be different.
-        // For this MVP, let's assume direct upload or the init-upload flow mentioned in spec.
-
-        // If using the init-upload flow:
-        // 1. Init upload -> get presigned URL
-        // 2. Upload to S3/Supabase
-        // 3. Complete upload -> notify backend
-
-        // For now, let's stick to a simple multipart upload assumption for the service skeleton,
-        // but the backend spec mentioned Init/Complete. Let's align with that if needed later.
-        // For now, standard multipart to backend for simplicity if supported, or logic to handle the flow.
         const response = await api.post('/files/upload', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
+            onUploadProgress: (progressEvent) => {
+                if (onProgress && progressEvent.total) {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    onProgress(percentCompleted);
+                }
+            }
         });
         return response.data;
     },
@@ -60,6 +54,11 @@ const fileService = {
 
     getStarredFiles: async () => {
         const response = await api.get('/files/starred');
+        return response.data;
+    },
+
+    getRecentFiles: async () => {
+        const response = await api.get('/files/recent');
         return response.data;
     },
 

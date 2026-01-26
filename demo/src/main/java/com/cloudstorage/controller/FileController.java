@@ -99,6 +99,15 @@ public class FileController {
         }
     }
 
+    @GetMapping("/recent")
+    public ResponseEntity<List<File>> getRecentFiles() {
+        try {
+            return ResponseEntity.ok(fileService.getRecentFiles(getCurrentUser()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping("/starred")
     public ResponseEntity<List<File>> getStarredFiles() {
         try {

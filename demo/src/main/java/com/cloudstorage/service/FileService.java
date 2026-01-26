@@ -180,6 +180,10 @@ public class FileService {
         return fileRepository.findByUserAndFileNameContainingIgnoreCaseAndIsTrashedFalse(user, query);
     }
 
+    public List<File> getRecentFiles(User user) {
+        return fileRepository.findTop20ByUserAndIsTrashedFalseOrderByCreatedAtDesc(user);
+    }
+
     public List<File> advancedSearchFiles(User user, String query, String fileType, Long minSize, Long maxSize,
             LocalDateTime startDate, LocalDateTime endDate) {
         return fileRepository.findAll(com.cloudstorage.repository.FileSpecification.hasUser(user));

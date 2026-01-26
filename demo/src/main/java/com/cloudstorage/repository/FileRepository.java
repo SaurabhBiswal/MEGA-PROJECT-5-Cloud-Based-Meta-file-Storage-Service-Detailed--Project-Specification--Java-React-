@@ -32,4 +32,7 @@ public interface FileRepository extends JpaRepository<File, UUID>, JpaSpecificat
 
     // Find starred files
     List<File> findByUserAndIsStarredTrueAndIsTrashedFalse(User user);
+
+    // Find recent files
+    List<File> findTop20ByUserAndIsTrashedFalseOrderByCreatedAtDesc(User user);
 }

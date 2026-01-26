@@ -17,10 +17,8 @@ const Recent = () => {
 
     const fetchRecentFiles = async () => {
         try {
-            const data = await fileService.getMyFiles();
-            // Sort by createdAt descending (most recent first)
-            const sorted = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            setFiles(sorted.slice(0, 20)); // Show last 20 files
+            const data = await fileService.getRecentFiles();
+            setFiles(data);
         } catch (error) {
             console.error('Failed to load recent files:', error);
         } finally {

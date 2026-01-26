@@ -24,6 +24,34 @@ const Shared = () => {
         }
     };
 
+    const handleStar = async (id) => {
+        try {
+            await fileService.starFile(id);
+            fetchSharedFiles();
+        } catch (error) {
+            console.error('Failed to star file:', error);
+        }
+    };
+
+    const handleDownload = async (file) => {
+        try {
+            const url = fileService.getDownloadUrl(file.id);
+            window.open(url, '_blank');
+        } catch (error) {
+            console.error('Failed to download file:', error);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await fileService.deleteFile(id);
+            fetchSharedFiles();
+        } catch (error) {
+            console.error('Failed to delete file:', error);
+            alert("You might not have permission to delete this shared file.");
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center h-full">
@@ -53,9 +81,10 @@ const Shared = () => {
                         <div key={share.id} className="relative">
                             <FileCard
                                 file={share.file}
-                                onMenuClick={() => { }}
                                 onClick={() => setPreviewFile(share.file)}
-                                onShareClick={() => { }}
+                                onStar={() => handleStar(share.file.id)}
+                                onDelete={() => handleDelete(share.file.id)}
+                                onDownload={() => handleDownload(share.file)}
                             />
                             <div className="absolute top-2 right-2 bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">
                                 {share.permission === 'VIEWER' ? 'View only' : 'Can edit'}

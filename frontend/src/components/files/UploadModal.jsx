@@ -56,24 +56,25 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
     };
 
     const handleUpload = async () => {
+        if (files.length === 0) return;
         setUploading(true);
         setProgress(0);
 
-        // Upload files sequentially for MVP simplicity
-        // Ideally use Promise.all or a queue
-        let completedCount = 0;
         const totalFiles = files.length;
 
         for (let i = 0; i < totalFiles; i++) {
             const fileItem = files[i];
             try {
-                await fileService.uploadFile(fileItem.file, folderId);
+                // Update specific file status to uploading
+                setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'uploading' } : f));
 
-                // Mark as success (for UI update if we kept the list visible)
+                await fileService.uploadFile(fileItem.file, folderId, (percent) => {
+                    // Update global progress (for simplicity in 1-file uploads) 
+                    // or could calculate weighted average for multi-file
+                    setProgress(percent);
+                });
+
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'success' } : f));
-                completedCount++;
-                setProgress(Math.round((completedCount / totalFiles) * 100));
-
             } catch (error) {
                 console.error("Upload failed for", fileItem.name, error);
                 setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'error' } : f));
@@ -187,8 +188,8 @@ const UploadModal = ({ isOpen, onClose, folderId, onUploadSuccess }) => {
                         onClick={handleUpload}
                         disabled={files.length === 0 || uploading}
                         className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-all shadow-sm ${files.length === 0 || uploading
-                                ? 'bg-blue-300 cursor-not-allowed'
-                                : 'bg-blue-600 hover:bg-blue-700'
+                            ? 'bg-blue-300 cursor-not-allowed'
+                            : 'bg-blue-600 hover:bg-blue-700'
                             }`}
                     >
                         {uploading ? 'Uploading...' : 'Upload Files'}

@@ -61,13 +61,19 @@ public class FileController {
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file,
-            @RequestParam(value = "folderId", required = false) UUID folderId) {
+            @RequestParam(value = "folderId", required = false) String folderIdStr) {
         try {
             User user = getCurrentUser();
+            UUID folderId = (folderIdStr != null && !folderIdStr.isBlank() && !folderIdStr.equals("null")
+                    && !folderIdStr.equals("undefined"))
+                            ? UUID.fromString(folderIdStr)
+                            : null;
+
             File savedFile = fileService.uploadFile(file, user, folderId);
             return ResponseEntity.ok(new FileResponse(savedFile.getId(), savedFile.getFileName(),
                     savedFile.getFileType(), savedFile.getFileSize(), "File uploaded successfully!"));
         } catch (Exception e) {
+            log.error("Upload error in controller: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Upload failed: " + e.getMessage());
         }
     }
@@ -85,16 +91,15 @@ public class FileController {
     public ResponseEntity<?> downloadFile(@PathVariable UUID fileId,
             @RequestParam(value = "token", required = false) String token) {
         try {
-            File file = fileService.getFile(fileId, getCurrentUser(token));
-            Resource resource = new UrlResource(URI.create(file.getFilePath()));
+            User user = getCurrentUser(token);
+            File file = fileService.getFile(fileId, user);
 
-            return ResponseEntity.ok()
-                    .contentType(MediaType.parseMediaType(file.getFileType()))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-                    .body(resource);
+            // Proxy stream from Supabase to client with authentication
+            return fileService.downloadFileProxy(file);
         } catch (org.springframework.web.server.ResponseStatusException e) {
             throw e;
         } catch (Exception e) {
+            log.error("Download error for file {}: {}", fileId, e.getMessage());
             return ResponseEntity.status(500).body("Download error: " + e.getMessage());
         }
     }

@@ -250,4 +250,31 @@ public class FileService {
         return fileRepository.findByPublicShareToken(token)
                 .orElseThrow(() -> new RuntimeException("Invalid link"));
     }
+
+    public ResponseEntity<org.springframework.core.io.Resource> downloadFileProxy(File file) {
+        try {
+            // Convert public URL to authenticated download URL
+            String authenticatedUrl = file.getFilePath().replace("/public/", "/authenticated/");
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + supabaseKey);
+            headers.set("apikey", supabaseKey);
+
+            HttpEntity<Void> request = new HttpEntity<>(headers);
+
+            ResponseEntity<org.springframework.core.io.Resource> response = restTemplate.exchange(
+                    authenticatedUrl,
+                    HttpMethod.GET,
+                    request,
+                    org.springframework.core.io.Resource.class);
+
+            return ResponseEntity.status(response.getStatusCode())
+                    .contentType(MediaType.parseMediaType(file.getFileType()))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+                    .body(response.getBody());
+        } catch (Exception e) {
+            log.error("Supabase proxy download failed: {}", e.getMessage());
+            throw new RuntimeException("Failed to fetch file from cloud: " + e.getMessage());
+        }
+    }
 }

@@ -41,8 +41,12 @@ public class Share {
         EDITOR
     }
 
+    @Column(name = "last_opened_at")
+    private LocalDateTime lastOpenedAt;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+        lastOpenedAt = LocalDateTime.now();
     }
 }

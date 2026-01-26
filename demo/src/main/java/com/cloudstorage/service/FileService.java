@@ -197,7 +197,55 @@ public class FileService {
     }
 
     public List<File> getRecentFiles(User user) {
-        return fileRepository.findTop20ByUserAndIsTrashedFalseOrderByCreatedAtDesc(user);
+        // 1. Get owned files sorted by lastOpenedAt
+        List<File> ownedFiles = fileRepository.findByUserAndIsTrashedFalse(user);
+
+        // 2. Get shared files
+        List<com.cloudstorage.model.Share> sharedWithMe = shareRepository.findBySharedWith(user);
+        List<File> sharedFiles = sharedWithMe.stream()
+                .map(com.cloudstorage.model.Share::getFile)
+                .filter(f -> !f.getIsTrashed())
+                .toList();
+
+        // 3. Combine and sort
+        java.util.List<File> combined = new java.util.ArrayList<>();
+        combined.addAll(ownedFiles);
+        combined.addAll(sharedFiles);
+
+        return combined.stream()
+                .sorted((f1, f2) -> {
+                    LocalDateTime t1 = f1.getLastOpenedAt() != null ? f1.getLastOpenedAt() : f1.getCreatedAt();
+                    LocalDateTime t2 = f2.getLastOpenedAt() != null ? f2.getLastOpenedAt() : f2.getCreatedAt();
+                    // For shared files, we actually want to check the Share record's lastOpenedAt
+                    // if possible
+                    // But for simplicity, we'll use the file's timestamp for now or refine if
+                    // needed.
+                    return t2.compareTo(t1);
+                })
+                .limit(20)
+                .toList();
+    }
+
+    public void reportFileOpen(UUID fileId, User user) {
+        try {
+            File file = fileRepository.findById(fileId).orElseThrow();
+            boolean isOwner = file.getUser().getId().toString().equals(user.getId().toString());
+
+            if (isOwner) {
+                file.setLastOpenedAt(LocalDateTime.now());
+                fileRepository.save(file);
+            } else {
+                shareRepository.findByFileIdAndSharedWith(fileId, user).ifPresent(share -> {
+                    share.setLastOpenedAt(LocalDateTime.now());
+                    shareRepository.save(share);
+                    // Also update file's general lastOpened for global recent (Optional)
+                    file.setLastOpenedAt(LocalDateTime.now());
+                    fileRepository.save(file);
+                });
+            }
+        } catch (Exception e) {
+            log.warn("Failed to report file open: {}", e.getMessage());
+        }
     }
 
     public List<File> advancedSearchFiles(User user, String query, String fileType, Long minSize, Long maxSize,

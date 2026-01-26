@@ -52,10 +52,14 @@ public class File {
     @Column(name = "public_share_token", unique = true)
     private String publicShareToken;
 
+    @Column(name = "last_opened_at")
+    private LocalDateTime lastOpenedAt;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
+        lastOpenedAt = LocalDateTime.now();
     }
 
     @PreUpdate

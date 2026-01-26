@@ -125,10 +125,23 @@ public class FileService {
     }
 
     public void deleteFile(UUID fileId, User user) {
-        File file = getFile(fileId, user);
-        checkPermission(fileId, user, com.cloudstorage.model.Share.Permission.EDITOR);
-        file.setIsTrashed(true);
-        fileRepository.save(file);
+        File file = fileRepository.findById(fileId)
+                .orElseThrow(() -> new RuntimeException("File not found"));
+
+        // If user is the owner, move to trash
+        if (file.getUser().getId().toString().equals(user.getId().toString())) {
+            file.setIsTrashed(true);
+            fileRepository.save(file);
+            return;
+        }
+
+        // If user is a recipient, revoke their access only (Remove from their view)
+        com.cloudstorage.model.Share share = shareRepository.findByFileIdAndSharedWith(fileId, user)
+                .orElseThrow(
+                        () -> new RuntimeException("Access denied: You do not have permission to remove this file."));
+
+        shareRepository.delete(share);
+        log.info("Access revoked for user {} on shared file {}", user.getEmail(), file.getFileName());
     }
 
     public void restoreFile(UUID fileId, User user) {

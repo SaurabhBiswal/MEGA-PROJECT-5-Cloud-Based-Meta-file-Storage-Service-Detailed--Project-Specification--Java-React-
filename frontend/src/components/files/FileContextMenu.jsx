@@ -30,14 +30,14 @@ const FileContextMenu = ({ file, onDelete, onRename, onStar, onShare, onOpen, on
     };
 
     const menuItems = [
-        { icon: Eye, label: 'Open', onClick: (e) => { e.stopPropagation(); onOpen(file); setIsOpen(false); } },
-        { icon: Share2, label: 'Share', onClick: (e) => { e.stopPropagation(); onShare(file); setIsOpen(false); } },
-        { icon: Star, label: file.isStarred ? 'Remove star' : 'Add star', onClick: (e) => { e.stopPropagation(); onStar(file); setIsOpen(false); }, active: file.isStarred },
-        { icon: FolderInput, label: 'Move to', onClick: (e) => { e.stopPropagation(); onMove(file); setIsOpen(false); } },
-        { icon: Edit, label: 'Rename', onClick: (e) => { e.stopPropagation(); onRename(file); setIsOpen(false); } },
-        { icon: Download, label: 'Download', onClick: (e) => { e.stopPropagation(); onDownload(file); setIsOpen(false); } },
-        { icon: Trash2, label: 'Move to trash', onClick: (e) => { e.stopPropagation(); onDelete(file); setIsOpen(false); }, danger: true },
-    ];
+        { icon: Eye, label: 'Open', onClick: (e) => { e.stopPropagation(); onOpen(file); setIsOpen(false); }, show: !!onOpen },
+        { icon: Share2, label: 'Share', onClick: (e) => { e.stopPropagation(); onShare(file); setIsOpen(false); }, show: !!onShare },
+        { icon: Star, label: file.isStarred ? 'Remove star' : 'Add star', onClick: (e) => { e.stopPropagation(); onStar(file); setIsOpen(false); }, active: file.isStarred, show: !!onStar },
+        { icon: FolderInput, label: 'Move to', onClick: (e) => { e.stopPropagation(); onMove(file); setIsOpen(false); }, show: !!onMove },
+        { icon: Edit, label: 'Rename', onClick: (e) => { e.stopPropagation(); onRename(file); setIsOpen(false); }, show: !!onRename },
+        { icon: Download, label: 'Download', onClick: (e) => { e.stopPropagation(); onDownload(file); setIsOpen(false); }, show: !!onDownload },
+        { icon: Trash2, label: 'Move to trash', onClick: (e) => { e.stopPropagation(); onDelete(file); setIsOpen(false); }, danger: true, show: !!onDelete },
+    ].filter(item => item.show);
 
     return (
         <div className="relative" ref={menuRef}>

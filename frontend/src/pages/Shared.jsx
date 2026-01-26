@@ -108,7 +108,7 @@ const Shared = () => {
                                 onDownload={(f) => window.open(fileService.getDownloadUrl(f.id), '_blank')}
                                 onRename={share.permission === 'EDITOR' ? (f) => setRenamingFile(f) : undefined}
                                 onShareClick={(f) => setShareFile(f)}
-                                onMove={share.permission === 'EDITOR' ? (f) => handleMove(f) : undefined}
+                                onMove={undefined} // Move not supported for shared files in MVP
                             />
                             <div className="absolute top-2 right-2 bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">
                                 {share.permission === 'VIEWER' ? 'View only' : 'Can edit'}

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MoreVertical, Download, Edit, Trash2, Star, Share2, FolderInput, Eye, Link } from 'lucide-react';
 
-const FileContextMenu = ({ file, onDelete, onRename, onStar, onShare, onOpen, onMove }) => {
+const FileContextMenu = ({ file, onDelete, onRename, onStar, onShare, onOpen, onMove, onDownload }) => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
 

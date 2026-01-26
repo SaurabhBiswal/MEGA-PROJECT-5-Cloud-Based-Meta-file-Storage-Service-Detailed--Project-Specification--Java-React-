@@ -34,25 +34,18 @@ public class NotificationService {
         notification.setActionLink("/shared");
         notificationRepository.save(notification);
 
-        // 2. Send Real Email
+        // 2. Send Real Email (SIMPLIFIED TEMPLATE)
         String body = String.format(
                 """
-                        <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; color: #1e293b;">
-                            <h2 style="color: #4f46e5;">New File Shared!</h2>
-                            <p><b>%s</b> has shared a file with you on CloudBox.</p>
-                            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin: 20px 0;">
-                                <p><b>File:</b> %s</p>
-                                <p><b>Permission:</b> %s</p>
-                            </div>
-                            <div style="margin: 30px 0; text-align: center;">
-                                <a href="%s/public-view/%s" style="display: inline-block; background: #10b981; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-bottom: 15px;">Open Private Link</a>
-                                <br>
-                                <a href="%s/dashboard" style="display: inline-block; background: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">View in Dashboard</a>
-                            </div>
+                        <h3>New File Shared with you!</h3>
+                        <p><b>%s</b> has shared "<b>%s</b>" with you on CloudBox.</p>
+                        <p>Permission: <b>%s</b></p>
+                        <div style="margin-top: 20px;">
+                            <a href="%s/public-view/%s" style="background: #4f46e5; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">View File</a>
                         </div>
                         """,
                 sharerName, file.getFileName(), permission.equals("VIEWER") ? "Can view" : "Can edit", frontendUrl,
-                publicToken, frontendUrl);
+                publicToken);
 
         emailService.sendEmail(sharedWith.getEmail(), subject, body, sharerName, sharedBy.getEmail());
         log.info("Shared notification saved and emailed for {}", sharedWith.getEmail());
@@ -66,21 +59,17 @@ public class NotificationService {
         String sharerName = sharedBy.getName() != null ? sharedBy.getName() : sharedBy.getEmail();
         String subject = String.format("%s invited you to view a file", sharerName);
 
-        // Send Email (External users don't have DB accounts yet)
+        // Send Email (SIMPLIFIED TEMPLATE)
         String body = String.format(
                 """
-                        <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; color: #1e293b;">
-                            <h2 style="color: #4f46e5;">File Invitation</h2>
-                            <p><b>%s</b> invited you to view a file on CloudBox.</p>
-                            <p>Since you don't have an account, you can access it directly via this secure link:</p>
-                            <div style="margin: 30px 0;">
-                                <a href="%s/public-view/%s" style="background: #10b981; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;">Open Private Link</a>
-                            </div>
-                            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 24px 0;">
-                            <p style="font-size: 12px; color: #64748b;">Want your own secure storage? <a href="%s/signup">Sign up for CloudBox</a></p>
+                        <h3>File Invitation from %s</h3>
+                        <p>You have been invited to view a file on CloudBox.</p>
+                        <p>Access it safely using this link:</p>
+                        <div style="margin-top: 20px;">
+                            <a href="%s/public-view/%s" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">View File</a>
                         </div>
                         """,
-                sharerName, frontendUrl, publicToken, frontendUrl);
+                sharerName, frontendUrl, publicToken);
 
         emailService.sendEmail(email, subject, body, sharerName, sharedBy.getEmail());
         log.info("External notification transmitted to Gmail for {}", email);

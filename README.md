@@ -10,6 +10,40 @@
 
 ---
 
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    User([User Browser])
+    
+    subgraph "Frontend (Vercel)"
+        React[React.js SPA]
+        Tailwind[Tailwind CSS]
+    end
+    
+    subgraph "Backend (Railway.app)"
+        Spring[Spring Boot API]
+        Security[Spring Security + JWT]
+    end
+    
+    subgraph "Cloud Infrastructure"
+        DB[(Supabase PostgreSQL)]
+        S3[AWS S3 Bucket]
+        Auth{Google OAuth 2.0}
+        Email[SendGrid API]
+    end
+    
+    User <-->|HTTPS| React
+    React <-->|REST API / JWT| Spring
+    Spring <-->|JPA/JDBC| DB
+    Spring <-->|AWS SDK| S3
+    Spring <-->|HTTP| Email
+    React <-->|OAuth Flow| Auth
+    Auth -.->|Success Token| Spring
+```
+
+---
+
 ## ✨ Key Features
 
 ### 🔐 Security & Identity

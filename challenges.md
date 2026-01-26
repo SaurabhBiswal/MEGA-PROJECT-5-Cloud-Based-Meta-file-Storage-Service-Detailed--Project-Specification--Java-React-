@@ -41,10 +41,19 @@ Developing and deploying a full-stack Cloud Storage service comes with significa
 **Challenge:** Using `localStorage` caused the same user session to be shared across all browser tabs. This made it impossible to test multiple accounts in the same browser and felt like a data leak.
 **Solution:** Switched to **`sessionStorage`**. Each browser tab now acts as a completely independent sandbox. Opening a new tab requires a separate login, matching the isolation expected from professional apps like Google Drive.
 
+## 9. The 50MB Barrier (Storage Migration)
+**Challenge:** We discovered that Supabase Storage Free Tier has a strict **50MB upload limit** per file. This was a dealbreaker for a service designed to handle large multi-modal files (up to 2GB).
+**Solution:** Migrated the storage layer to **AWS S3**. This allowed us to support massive file uploads while maintaining high performance and reliability.
+
+## 10. The Shadow Reference Error (Build Refactor)
+**Challenge:** During the final production refactor to remove hardcoded localhost URLs, some critical React hooks (`useAuth`, `useNavigate`) were accidentally left unimported in `GoogleLoginButton.jsx`, causing the production site to crash on the login page.
+**Solution:** Debugged via the browser console, restored the missing imports, and verified the fix across all authentication components.
+
 ---
 
 ### **Lessons Learned**
 - **Persistence is Key:** Local server storage is for temporary data only.
 - **APIs > SMTP:** For cloud deployments, always use HTTP Mail APIs over SMTP.
 - **Heap Management:** In restricted RAM environments, manual JVM tuning is mandatory.
-- **Public Links:** Unifying sharing via public tokens makes for a much smoother user experience.
+- **Storage Scalability:** Check free-tier limits early; S3 is often the better choice for large assets.
+- **Reference Integrity:** Always verify imports after a major search-and-replace refactor.

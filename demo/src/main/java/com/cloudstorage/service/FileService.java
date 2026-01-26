@@ -200,8 +200,10 @@ public class FileService {
     }
 
     public File moveFile(UUID fileId, UUID targetFolderId, User user) {
-        File file = getFile(fileId, user);
-        checkPermission(fileId, user, com.cloudstorage.model.Share.Permission.EDITOR);
+        File file = fileRepository.findById(fileId).orElseThrow();
+        if (!file.getUser().getId().toString().equals(user.getId().toString())) {
+            throw new RuntimeException("Only the owner can move this file to a folder.");
+        }
         if (targetFolderId != null) {
             Folder targetFolder = folderRepository.findById(targetFolderId)
                     .orElseThrow(() -> new RuntimeException("Folder not found"));

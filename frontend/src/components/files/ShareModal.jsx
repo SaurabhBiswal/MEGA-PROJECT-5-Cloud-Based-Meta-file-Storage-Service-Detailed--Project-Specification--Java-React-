@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Share2, UserPlus, Trash2, Mail, Shield, Link, Copy, Check, Globe, AlertCircle, ArrowRight } from 'lucide-react';
 import shareService from '../../services/shareService';
 import fileService from '../../services/fileService';
+import authService from '../../services/authService';
 
 const ShareModal = ({ isOpen, onClose, file, onSuccess }) => {
     const [email, setEmail] = useState('');
@@ -22,11 +23,21 @@ const ShareModal = ({ isOpen, onClose, file, onSuccess }) => {
     }, [isOpen, file]);
 
     const fetchShares = async () => {
+        const currentUser = authService.getCurrentUser();
+        // Only fetch if current user is owner
+        if (file.user?.id !== currentUser?.id && file.owner?.id !== currentUser?.id) {
+            console.log('User is not owner, skipping share list fetch');
+            return;
+        }
+
         try {
             const data = await shareService.getFileShares(file.id);
             setShares(data);
         } catch (err) {
-            console.error('Failed to fetch shares', err);
+            // Suppress error in console if it's a known permission issue
+            if (err.response?.status !== 400) {
+                console.error('Failed to fetch shares', err);
+            }
         }
     };
 

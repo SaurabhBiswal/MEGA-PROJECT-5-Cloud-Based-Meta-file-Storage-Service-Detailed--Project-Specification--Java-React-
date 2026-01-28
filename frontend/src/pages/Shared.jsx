@@ -128,6 +128,7 @@ const Shared = () => {
                 isOpen={!!shareFile}
                 file={shareFile}
                 onClose={() => setShareFile(null)}
+                onSuccess={fetchFiles}
             />
 
             <RenameModal

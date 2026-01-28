@@ -101,7 +101,7 @@ const Recent = () => {
                 isOpen={!!shareFile}
                 file={shareFile}
                 onClose={() => setShareFile(null)}
-                onSuccess={fetchFiles}
+                onSuccess={fetchRecentFiles}
             />
 
             <RenameModal

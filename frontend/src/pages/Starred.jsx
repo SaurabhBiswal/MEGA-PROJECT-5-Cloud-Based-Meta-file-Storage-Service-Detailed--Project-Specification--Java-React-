@@ -104,7 +104,7 @@ const Starred = () => {
                 isOpen={!!shareFile}
                 file={shareFile}
                 onClose={() => setShareFile(null)}
-                onSuccess={fetchFiles}
+                onSuccess={fetchStarredFiles}
             />
 
             <RenameModal

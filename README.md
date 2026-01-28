@@ -5,7 +5,7 @@
 ---
 
 ## 🚀 Live Links
-- **Frontend (Vercel):** [mega-project-5-cloud-based-meta-fil.vercel.app](https://mega-project-5-cloud-based-meta-fil.vercel.app)
+- **Frontend (Vercel):** [https://mega-project-5-cloud-based-meta-fil.vercel.app/login)
 - **Backend (Railway):** [melodious-curiosity-production.up.railway.app](https://melodious-curiosity-production.up.railway.app)
 
 ---

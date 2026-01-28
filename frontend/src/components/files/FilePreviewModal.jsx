@@ -63,14 +63,14 @@ const FilePreviewModal = ({ isOpen, onClose, file, onShare, onStar }) => {
 
                     <div className="flex items-center gap-2">
                         <button
-                            onClick={(e) => { e.stopPropagation(); onStar(file); }}
+                            onClick={(e) => { e.stopPropagation(); onStar && onStar(file); }}
                             className={`p-2 rounded-lg transition-colors ${file.isStarred ? 'bg-yellow-500/20 text-yellow-500' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`}
                             title="Star"
                         >
                             <Star className={`w-5 h-5 ${file.isStarred ? 'fill-yellow-500' : ''}`} />
                         </button>
                         <button
-                            onClick={(e) => { e.stopPropagation(); onShare(file); }}
+                            onClick={(e) => { e.stopPropagation(); onShare && onShare(file); }}
                             className="p-2 text-gray-400 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
                             title="Share"
                         >
@@ -128,7 +128,7 @@ const FilePreviewModal = ({ isOpen, onClose, file, onShare, onStar }) => {
                                     <Download className="w-4 h-4" />
                                     Download
                                 </button>
-                                <button onClick={() => onShare(file)} className="px-6 py-4 bg-white/10 text-white rounded-2xl font-black text-sm hover:bg-white/20 transition-all flex items-center justify-center gap-2">
+                                <button onClick={() => onShare && onShare(file)} className="px-6 py-4 bg-white/10 text-white rounded-2xl font-black text-sm hover:bg-white/20 transition-all flex items-center justify-center gap-2">
                                     <Share2 className="w-4 h-4" />
                                     Share
                                 </button>

@@ -95,6 +95,8 @@ const Recent = () => {
                 isOpen={!!previewFile}
                 file={previewFile}
                 onClose={() => setPreviewFile(null)}
+                onShare={(f) => setShareFile(f)}
+                onStar={(f) => handleStar(f)}
             />
 
             <ShareModal

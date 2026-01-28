@@ -98,6 +98,8 @@ const Starred = () => {
                 isOpen={!!previewFile}
                 file={previewFile}
                 onClose={() => setPreviewFile(null)}
+                onShare={(f) => setShareFile(f)}
+                onStar={(f) => handleStarFile(f)}
             />
 
             <ShareModal
